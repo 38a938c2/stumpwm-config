@@ -1,0 +1,75 @@
+(and
+  (find-package :dswm)
+  (not (find-package :stumpwm))
+  (rename-package (find-package :dswm) :dswm '(:stumpwm))
+  )
+(in-package :stumpwm)
+
+(defun getenv (var-name) 
+  (#+clisp ext:getenv
+   #+sbcl  sb-posix:getenv
+   #+ccl  ccl:getenv
+   #+ecl  ext:getenv
+   var-name
+   ))
+
+(defun setenv (var value)
+  #+sbcl (sb-posix:setenv var value 1)
+  )
+
+(defparameter *HOME* (getenv "HOME"))
+(defun load-rcpart-old (name)
+  (load (concatenate 'string *HOME* "/src/rc/stumpwm/" name ".lisp")))
+(defun load-rcpart (name)
+  (load (concatenate 'string *HOME* "/src/lsp/stumpwm-config/" name ".lisp")))
+
+(asdf::compute-source-registry)
+
+(load-rcpart-old "defpass")
+
+(set-module-dir "/home/repos/stumpwm-contrib/")
+(load-module "windowtags")
+(load-module "ttf-fonts")
+(use-package :windowtags)
+(import 'windowtags::select-by-tags)
+
+(load-rcpart "deftags")
+
+(load-rcpart "frame-tags")
+(load-rcpart "wse-frame-tags")
+(load-rcpart "wse-window-tags")
+(load-rcpart "frame-tagged-group")
+ 
+(load-rcpart "defoverride")
+
+(load-rcpart "defparam")
+(load-rcpart "defkey")
+(load-rcpart "defvar")
+(load-rcpart "defun")
+(load-rcpart "defhook")
+(load-rcpart "setvar")
+
+(run-shell-command "echo -n ' ' \| xsel -i")
+
+
+(setf *urgent-window-hook* '())
+(setf *focus-window-hook* '())
+(add-hook *urgent-window-hook* 'raise-urgent-window-hook)
+
+(add-hook *focus-window-hook* 'remember-focus-window-hook)
+(run-shell-command "echo -n ' ' | xsel -i")
+
+(add-hook *start-hook* 'fclear)
+(add-hook *split-frame-hook* 'frame-split-tagging-hook)
+
+(setf *focus-group-hook* '())
+(add-hook *focus-group-hook* 'echo-switch-group-hook)
+
+(add-hook *start-hook* 'modeline-killer-start-hook)
+
+(gselect (find-group (current-screen) "Default"))
+
+(do-status-split)
+(place-my-status-windows)
+
+; vim:filetype=lisp
