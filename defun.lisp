@@ -246,7 +246,8 @@
 
 (defcommand reload-defhooks () ()
 	    "Only load definitions of hooks from rc"
-	    (load-rcpart "defhook"))
+	    (load-rcpart "defhook")
+	    (load-rcpart "sethook"))
 
 (defcommand reload-defkeys () ()
 	    "Only load key bindings from rc"
@@ -1058,3 +1059,40 @@
   (act-on-matching-windows 
     (x :screen) 
     (id-p x id) (pull-w x) (pull-window x) (really-raise-window x)))
+(defcommand activate-by-id-move-focus 
+            (id) ((:number "Window ID to select: "))
+  "Choose the window by ID"
+  (act-on-matching-windows 
+    (x :screen) 
+    (id-p x id) (pull-w x) (really-raise-window x)))
+
+(defcommand activate-urgent () ()
+  "Choose a window that should be active but lost focus"
+  (or
+    (act-on-matching-windows (x :screen) (titled-p x "rofi")
+      (pull-w x) (pull-window x) (really-raise-window x))
+    (act-on-matching-windows (x :screen) (titled-p x "dmenu")
+      (pull-w x) (pull-window x) (really-raise-window x))
+    (act-on-matching-windows (x :screen) (titled-p x "enter master password")
+      (pull-w x) (pull-window x) (really-raise-window x))
+    ))
+
+(defcommand set-window-layout 
+  (layout &key 
+          (window (current-window)) keep-sticky) 
+  ((:rest "Layout number: "))
+  "Set the layout used when switching to the window"
+  (setf 
+    (window-tags window)
+    (remove "xkbgr/-"
+            (cons
+              (format nil "xkbgr/~a" layout)
+              (remove-if
+                (lambda (s) 
+                  (cl-ppcre:scan 
+                    (if keep-sticky
+                      "^XKBGR/[0-9]+$"
+                      "^XKBGR/")
+                    s))
+                (window-tags window)))
+            :test 'equalp)))

@@ -46,6 +46,7 @@
 (define-key *root-map* (kbd "B") "exec brightness")
 
 (define-key *root-map* (kbd "Menu") "globally-previous-wt")
+(define-key *root-map* (kbd "ISO_Level3_Shift") "activate-urgent")
 
 (define-key *root-map* (kbd "F12") "gselect .system")
 (define-key *root-map* (kbd "F12") "gselect .tag-store")
@@ -116,6 +117,7 @@
 (define-key *root-map* (kbd "V") "tag-visible")
 
 (define-key *root-map* (kbd "/") "exec choose-window")
+(define-key *root-map* (kbd "M-/") "exec choose-window-and-go")
 (define-key *root-map* (kbd ".") "all-tags-grouped")
 (define-key *root-map* (kbd "C-.") "scrollable-window-tag-list")
 

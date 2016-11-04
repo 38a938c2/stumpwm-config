@@ -25,6 +25,8 @@
 
 (asdf::compute-source-registry)
 
+(run-shell-command "echo -n ' ' \| xsel -i")
+
 (load-rcpart-old "defpass")
 
 (set-module-dir "/home/repos/stumpwm-contrib/")
@@ -35,6 +37,7 @@
 
 (load-rcpart "deftags")
 
+(load-rcpart "wse")
 (load-rcpart "frame-tags")
 (load-rcpart "wse-frame-tags")
 (load-rcpart "wse-window-tags")
@@ -48,26 +51,11 @@
 (load-rcpart "defun")
 (load-rcpart "defhook")
 (load-rcpart "setvar")
-
-(run-shell-command "echo -n ' ' \| xsel -i")
-
-
-(setf *urgent-window-hook* '())
-(setf *focus-window-hook* '())
-(add-hook *urgent-window-hook* 'raise-urgent-window-hook)
-
-(add-hook *focus-window-hook* 'remember-focus-window-hook)
-(run-shell-command "echo -n ' ' | xsel -i")
-
-(add-hook *start-hook* 'fclear)
-(add-hook *split-frame-hook* 'frame-split-tagging-hook)
-
-(setf *focus-group-hook* '())
-(add-hook *focus-group-hook* 'echo-switch-group-hook)
-
-(add-hook *start-hook* 'modeline-killer-start-hook)
+(load-rcpart "sethook")
 
 (gselect (find-group (current-screen) "Default"))
+
+(run-shell-command "echo -n ' ' | xsel -i")
 
 (do-status-split)
 (place-my-status-windows)

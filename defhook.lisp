@@ -33,7 +33,6 @@
     (ratclick 1) ; FIXME: it doesn't work
     (run-shell-command "echo -e 'ButtonPress 1\\nButtonRelease 1' | xmacroplay $DISPLAY")
     ))
-(add-hook *focus-window-hook* 'click-conversation-focus-window-hook)
 
 (defun renumbering-start-hook ()
   (message "Starting renumbering hook")
@@ -74,18 +73,30 @@
 (require :xkeyboard)
 (xlib::initialize-extensions *display*)
 (xlib:enable-xkeyboard *display*)
-(defun force-window-layout-hook (new old)
+(defun force-window-layout-hook (new &optional old)
+  (when
+    (and old (find "xkbgr/!" (window-tags old) :test 'equalp))
+    (set-window-layout 
+      (xlib:device-state-group (xlib:get-state *display*))
+      :window old :keep-sticky t))
   (let*
     (
      (tags (window-tags new))
-     (grtag (find-if (lambda (x) (cl-ppcre:scan "^XKBGR/" x)) tags))
+     (grtag (find-if (lambda (x) (cl-ppcre:scan "^XKBGR/[0-9]+$" x)) tags))
      (grtag (when grtag (cl-ppcre:regex-replace "^XKBGR/" grtag "")))
      (gr (ignore-errors (parse-integer grtag)))
      )
     (when gr (xlib:lock-group *display* :group gr))
     )
   )
-(add-hook *focus-window-hook* 'force-window-layout-hook)
+
+(defun default-layout-hook (new &rest args)
+  (let
+    ((gr 
+       (cond
+         ((find (window-title new) '("rofi") :test 'equalp) 0)
+         (t nil))))
+    (when gr (xlib:lock-group *display* :group gr))))
 
 (defun raise-top-windows-hook (new old)
   (declare (ignorable new) (ignorable old))
@@ -99,4 +110,17 @@
 	finally (setf *windows-on-top* (set-difference *windows-on-top* bad))
 	)
   )
-(add-hook *focus-window-hook* 'raise-top-windows-hook)
+
+(defun default-tags-hook (&rest args)
+  (ignore-errors (default-tags)))
+
+(defun activate-strictly-urgent (&rest args)
+  "Choose a window that should always be active but lost focus"
+  (or
+    (act-on-matching-windows (x :screen) 
+      (ignore-errors (titled-p x "rofi"))
+      (pull-w x) (pull-window x) (really-raise-window x))
+    (act-on-matching-windows (x :screen) 
+      (ignore-errors (titled-p x "dmenu"))
+      (pull-w x) (pull-window x) (really-raise-window x))
+    ))
