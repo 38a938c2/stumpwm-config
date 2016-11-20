@@ -2,6 +2,16 @@
 
 (set-prefix-key (kbd "Menu"))
 
+(define-key *top-map* (kbd "Print") '*root-map*)
+(define-key *top-map* (kbd "SunPrint_Screen") '*root-map*)
+(define-key *top-map* (kbd "Sys_Req") '*root-map*)
+(define-key *tile-group-top-map* (kbd "Print") '*tile-group-root-map*)
+(define-key *tile-group-top-map* (kbd "SunPrint_Screen") '*tile-group-root-map*)
+(define-key *tile-group-top-map* (kbd "Sys_Req") '*tile-group-root-map*)
+(define-key *group-top-map* (kbd "Print") '*group-root-map*)
+(define-key *group-top-map* (kbd "SunPrint_Screen") '*group-root-map*)
+(define-key *group-top-map* (kbd "Sys_Req") '*group-root-map*)
+
 (define-key *root-map* (kbd "M") "meta Menu")
 (define-key *root-map* (kbd "N") "eval (run-commands \"exec pkill -9 xneur\" \"exec xneur &\")")
 (define-key *root-map* (kbd "M-N") "exec pkill -9 xneur")
@@ -46,6 +56,9 @@
 (define-key *root-map* (kbd "B") "exec brightness")
 
 (define-key *root-map* (kbd "Menu") "globally-previous-wt")
+(define-key *root-map* (kbd "Print") "globally-previous-wt")
+(define-key *root-map* (kbd "Sys_Req") "globally-previous-wt")
+(define-key *root-map* (kbd "SunPrint_Screen") "globally-previous-wt")
 (define-key *root-map* (kbd "ISO_Level3_Shift") "activate-urgent")
 
 (define-key *root-map* (kbd "F12") "gselect .system")
@@ -86,6 +99,7 @@
 (define-key *root-map* (kbd "S-M-F5") "pull-tag qemu")
 ;(define-key *root-map* (kbd "S-M-F6") "gimp-layout")
 ;(define-key *root-map* (kbd "S-M-F7") "dia-layout")
+(define-key *root-map* (kbd "S-M-F8") "pull-tag media")
 
 (define-key *root-map* (kbd "M-1") "select-window-by-number 11")
 (define-key *root-map* (kbd "M-2") "select-window-by-number 12")
@@ -242,3 +256,7 @@
 
 (define-key *top-map* (kbd "C-ISO_Level3_Shift") "exec type-chosen-string")
 (define-key *top-map* (kbd "C-M-ISO_Level3_Shift") "exec type-unicode-symbol")
+
+(define-key *top-map* (kbd "M-!") "eval (xlib:lock-group *display* :group 0)")
+(define-key *top-map* (kbd "M-@") "eval (xlib:lock-group *display* :group 1)")
+(define-key *top-map* (kbd "M-#") "eval (xlib:lock-group *display* :group 2)")

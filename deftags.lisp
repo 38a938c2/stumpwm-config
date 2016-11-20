@@ -272,6 +272,8 @@
 	      (equalp (window-class x) "xpilot-ng-sdl")
 	      (equalp (window-class x) "lincity-ng")
 	      (equalp (window-class x) "love")
+	      (equalp (window-class x) "blobby")
+	      (equalp (window-class x) "blobby.bin")
 	      )
 	  (list "games"))
 	(if (and
@@ -552,5 +554,6 @@
     ((intersection tags '("sh" "root") :test 'equalp) "cat/h-shells")
     ((intersection tags '("ssh") :test 'equalp) "cat/u-ssh")
     ((intersection tags '("browser") :test 'equalp) "cat/f-browsers")
+    ((intersection tags '("editor") :test 'equalp) "cat/c-editors")
     )
   )
