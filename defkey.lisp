@@ -198,19 +198,25 @@
 ;(define-key *top-map* (kbd "s-Pause") "exec media-screen register p '<'; media-screen paste p")
 ;(define-key *top-map* (kbd "s-KP_Add") "exec media-screen readreg p ~/src/sh/script/play-random-music; media-screen paste p")
 
-(define-key *top-map* (kbd "XF86AudioRaiseVolume") "exec increase-level Master +1")
-(define-key *top-map* (kbd "XF86AudioLowerVolume") "exec increase-level Master -1")
-(define-key *top-map* (kbd "S-XF86AudioRaiseVolume") "exec increase-level Master +10")
-(define-key *top-map* (kbd "S-XF86AudioLowerVolume") "exec increase-level Master -10")
+(define-key *top-map* (kbd "XF86AudioRaiseVolume") "exec increase-highest-level +1 PCM Master")
+(define-key *top-map* (kbd "XF86AudioLowerVolume") "exec increase-highest-level -1 PCM Master")
+(define-key *top-map* (kbd "S-XF86AudioRaiseVolume") "exec increase-highest-level +10 PCM Master")
+(define-key *top-map* (kbd "S-XF86AudioLowerVolume") "exec increase-highest-level -10 PCM Master")
 (define-key *top-map* (kbd "XF86AudioMute") "exec no_levels")
 (define-key *top-map* (kbd "S-XF86AudioMute") "exec local-levels")
 (define-key *top-map* (kbd "S-M-XF86AudioMute") "exec my_levels")
 (define-key *top-map* (kbd "M-XF86AudioMute") "exec media-screen register p play-random-music; media-screen paste p")
 (define-key *top-map* (kbd "C-XF86AudioMute") "exec media-screen register p p; media-screen paste p")
+(define-key *top-map* (kbd "XF86AudioPlay") "exec media-screen register p play-random-music; media-screen paste p")
+(define-key *top-map* (kbd "C-XF86AudioPlay") "exec media-screen register p p; media-screen paste p")
 (define-key *top-map* (kbd "C-XF86AudioLowerVolume") "exec media-screen register p h; media-screen paste p")
 (define-key *top-map* (kbd "C-XF86AudioRaiseVolume") "exec media-screen register p l; media-screen paste p")
 (define-key *top-map* (kbd "C-M-XF86AudioLowerVolume") "exec media-screen register p H; media-screen paste p")
 (define-key *top-map* (kbd "C-M-XF86AudioRaiseVolume") "exec media-screen register p L; media-screen paste p")
+(define-key *top-map* (kbd "XF86AudioPrev") "exec media-screen register p h; media-screen paste p")
+(define-key *top-map* (kbd "M-XF86AudioPrev") "exec media-screen register p H; media-screen paste p")
+(define-key *top-map* (kbd "XF86AudioNext") "exec media-screen register p l; media-screen paste p")
+(define-key *top-map* (kbd "M-XF86AudioNext") "exec media-screen register p L; media-screen paste p")
 
 (define-key *top-map* (kbd "XF86TouchpadToggle") "exec touchpad toggle")
 
@@ -223,6 +229,7 @@
 (define-key *root-map* (kbd "C-D") "exec sleep 1; xset dpms force off")
 
 (define-key *top-map* (kbd "XF86Display") "exec x-randr-options")
+(define-key *top-map* (kbd "XF86ScreenSaver") "exec xscreensaver-command -lock || { @- xscreensaver ; sleep 1; xscreensaver-command -lock; } ")
 
 (define-key *root-map* (kbd "C-:") "eval+stdout")
 
@@ -260,3 +267,10 @@
 (define-key *top-map* (kbd "M-!") "eval (xlib:lock-group *display* :group 0)")
 (define-key *top-map* (kbd "M-@") "eval (xlib:lock-group *display* :group 1)")
 (define-key *top-map* (kbd "M-#") "eval (xlib:lock-group *display* :group 2)")
+(define-key *top-map* (kbd "C-M-!") "eval (progn (xlib:lock-group *display* :group 0) (set-window-layout 0))")
+(define-key *top-map* (kbd "C-M-@") "eval (progn (xlib:lock-group *display* :group 1) (set-window-layout 1))")
+(define-key *top-map* (kbd "C-M-#") "eval (progn (xlib:lock-group *display* :group 2) (set-window-layout 2))")
+(define-key *top-map* (kbd "C-M-~") "eval (progn (set-window-layout \"!\"))")
+
+(define-key *root-map* (kbd "C-M-S-Left") "sprev")
+(define-key *root-map* (kbd "C-M-S-Right") "snext")
