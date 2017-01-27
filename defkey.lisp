@@ -248,6 +248,7 @@
 (define-key *root-map* (kbd "C-F7") "open-ssh-gvim")
 
 (define-key *root-map* (kbd "C-F5") "exec site-slimerjs-chosen-with-extras")
+(define-key *root-map* (kbd "C-S-F5") "exec CHOOSE_SLIMERJS_USER_PREFIX=1 site-slimerjs-chosen-with-extras")
 
 (define-key *root-map* (kbd "C-F1") "exec urxvt -e meta-screen")
 
@@ -271,6 +272,7 @@
 (define-key *top-map* (kbd "C-M-@") "eval (progn (xlib:lock-group *display* :group 1) (set-window-layout 1))")
 (define-key *top-map* (kbd "C-M-#") "eval (progn (xlib:lock-group *display* :group 2) (set-window-layout 2))")
 (define-key *top-map* (kbd "C-M-~") "eval (progn (set-window-layout \"!\"))")
+(define-key *top-map* (kbd "M-~") "eval (progn (set-window-layout \"~\"))")
 
 (define-key *root-map* (kbd "C-M-S-Left") "sprev")
 (define-key *root-map* (kbd "C-M-S-Right") "snext")

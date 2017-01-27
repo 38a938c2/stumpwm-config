@@ -57,7 +57,7 @@
 	      )
 	  (list 
 	    ;"0" 
-	    "base" "sh") nil)
+	    "base" "sh" "xkbgr/!") nil)
 	(if (and 
 	      (or 
 		(equal (window-class x) "Carrier")
@@ -159,9 +159,24 @@
 	  (list "im" "ii-interactive" "irc")
 	  )
 	(if
+          (or
+            (starts-with (window-title x) "IRC screen: irc/")
+            (starts-with (window-title x) "IRC screen: irc.freenode.net/")
+            (starts-with (window-title x) "IRC screen: irc.oftc.net/")
+            )
+	  (list "xkbgr/0")
+	  )
+	(if
 	  (starts-with (window-title x) "XMPP screen: ")
 	  (list "im" "mcabber-interactive" "xmpp")
 	  )
+	(if
+          (and
+            (starts-with (window-title x) "XMPP screen: raskin@dev.mccme.ru/out/")
+            (ends-with (window-title x) "@dev.mccme.ru")
+            )
+          (list "im" "mcabber-interactive" "xkbgr/1")
+          )
 	(if
 	  (or
 	    (starts-with (window-title x) "IRC summary: ")
@@ -260,7 +275,7 @@
 	      )
 	  (list 
 	    ;"9" 
-	    "root" "admin" "base"))
+	    "root" "admin" "base" "xkbgr/0"))
 	(if (or
 	      (equal (window-class x) "xmoto")
 	      (equalp (window-class x) "warmux")
@@ -300,6 +315,8 @@
 	      (equal (window-class x) ".evince-wrapped")
 	      (equal (window-class x) "Xpdf")
 	      (equal (window-class x) "Zathura")
+	      (equal (window-class x) "zathura")
+	      (equal (window-class x) ".zathura-wrapped")
 	      (equal (window-class x) "MuPDF")
 	      (equal (window-class x) "XSane")
 	      (equal (window-res x) "gv")
@@ -334,7 +351,7 @@
 	  (or
 	    (equal (window-title x) "Media screen")
 	    )
-	  (list "media")
+	  (list "media" "xkbgr/0")
 	  )
 	(if
 	  (or
@@ -382,7 +399,7 @@
 		(starts-with (window-title x) "ssh-do-there: ")
 		)
 	      )
-	  (list "ssh" "base"))
+	  (list "ssh" "base" "xkbgr/0"))
 	(if (and
 	      (or
 		(equal (window-res x) "xterm")
@@ -393,7 +410,7 @@
 		(equal (window-title x) "web-streams")
 		)
 	      )
-	  (list "web-streams" "viewers" "view"))
+	  (list "web-streams" "viewers" "view" "xkbgr/0"))
 	(if (and
 	      (or
 		(equal (window-res x) "xterm")

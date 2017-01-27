@@ -95,7 +95,7 @@
     ((gr 
        (cond
          ((find (window-title new) '("rofi") :test 'equalp) 0)
-         (t nil))))
+         (t 0))))
     (when gr (xlib:lock-group *display* :group gr))))
 
 (defun raise-top-windows-hook (new old)
