@@ -27,8 +27,8 @@
 (setf *min-frame-height* 25)
 (setf *window-format* "%m%n %s [ %70t ] (%30c | %30i | %30r)")
 
-(setf (head-mode-line (current-head)) nil)
-(enable-mode-line (current-screen) (current-head) nil)
+;(setf (head-mode-line (current-head)) nil)
+;(enable-mode-line (current-screen) (current-head) nil)
 
 (setf *normal-border-width* 0)
 
