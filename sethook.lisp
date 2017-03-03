@@ -5,7 +5,6 @@
 (add-hook *focus-window-hook* 'remember-focus-window-hook)
 (add-hook *focus-window-hook* 'default-tags-hook)
 (add-hook *focus-window-hook* 'raise-top-windows-hook)
-(add-hook *focus-window-hook* 'activate-strictly-urgent)
 (add-hook *focus-window-hook* 'force-window-layout-hook)
 
 (setf *new-window-hook* '())
