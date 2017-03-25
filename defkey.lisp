@@ -24,6 +24,7 @@
 (define-key *root-map* (kbd "C-K") "withdraw-current-window")
 
 (define-key *root-map* (kbd "M-c") "exec urxvt")
+(define-key *root-map* (kbd "C-c") "exec mlterm")
 (define-key *root-map* (kbd "C-h") "exec :hour-sleep")
 (define-key *root-map* (kbd "C-y") "exec :away")
 (define-key *root-map* (kbd "P") "exec :asleep")
@@ -39,13 +40,13 @@
 (define-key *root-map* (kbd "M-W") "exec ~/.nix-personal/personal-result/webkit_gtk2/bin/webkit-program-GtkLauncher")
 
 (define-key *root-map* (kbd "C-f") "exec urxvt -lsp 9 -fn 'xft:DejaVu Sans Mono:pixelsize=16:antialias=true:weight=' -e zsh -c 'xtitle web-streams; screen -D -RR -S view-web-streams -U view-web-streams'")
-(define-key *root-map* (kbd "C-M") "exec urxvt -e zsh -c 'launch-view-emails'")
-(define-key *root-map* (kbd "C-M-M") "exec urxvt -e zsh -c 'launch-view-emails edit-new-email'")
-(define-key *root-map* (kbd "C-M-m") "exec urxvt -e zsh -c 'launch-view-emails view-mail-summaries'")
+(define-key *root-map* (kbd "C-M") "exec mlterm -e zsh -c 'launch-view-emails'")
+(define-key *root-map* (kbd "C-M-M") "exec mlterm -e zsh -c 'launch-view-emails edit-new-email'")
+(define-key *root-map* (kbd "C-M-m") "exec mlterm -e zsh -c 'launch-view-emails view-mail-summaries'")
 ;(define-key *root-map* (kbd "C-F") "exec uzbl $(find-related-uri)") 
 
 (define-key *root-map* (kbd "C-B") "exec urxvt -e zsh -c 'xtitle breaking-news; screen -D -RR -S view-breaking-news -U view-breaking-news'")
-(define-key *root-map* (kbd "C-M-B") "exec rm ~/.breaking-news/zzz-naggers; fast-lane-emails-to-breaking-news; kill-gajim-passwords ; kill-gajim-statuses; sort-gajim-config; clean-gqview-geometry; cd ~/src/rc/popularity; mtn ci -m 'automated popularity commit'; purge-all-from-pending")
+(define-key *root-map* (kbd "C-M-B") "exec rm ~/.breaking-news/zzz-naggers; find ~/.breaking-news/ -size 0 -print0 | xargs -0 rm; fast-lane-emails-to-breaking-news; kill-gajim-passwords ; kill-gajim-statuses; sort-gajim-config; clean-gqview-geometry; cd ~/src/rc/popularity; mtn ci -m 'automated popularity commit'; purge-all-from-pending")
 
 (define-key *root-map* (kbd "C-M-f") "exec firefox")
 

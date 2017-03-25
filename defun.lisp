@@ -612,7 +612,7 @@
   (ftg-set-tags "HEAVY-BROWSER")
   (unless
     (ftg-windows)
-    (run-shell-command "firefox")
+    (run-shell-command "@pulseaudio firefox")
     )
   )
 
