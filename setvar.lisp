@@ -8,6 +8,7 @@
 (defvar *fonts-cached* nil)
 (unless *fonts-cached*
   (setf xft:*font-dirs* (list "/run/current-system/sw/share/fonts/truetype/"))
+  (setf xft::+font-cache-filename+ (format nil "/tmp/~a-font-cache.clx-truetype" (uiop:getenv "USER")))
   (xft:cache-fonts)
   (setf *fonts-cached* t)
   )

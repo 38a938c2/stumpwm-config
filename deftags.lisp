@@ -1,15 +1,19 @@
 (in-package :stumpwm)
 (defun union-mild (a b) (union a b :test 'equalp))
 
-(defun ends-with (x y) 
-  (and
-    (>= (length x) (length y))
-    (equalp y (subseq x (- (length x) (length y)) (length x)))))
+(unless
+  (fboundp 'ends-with)
+  (defun ends-with (x y) 
+    (and
+      (>= (length x) (length y))
+      (equalp y (subseq x (- (length x) (length y)) (length x))))))
 
-(defun starts-with (x y) 
-  (and
-    (>= (length x) (length y))
-    (equalp y (subseq x 0 (length y)))))
+(unless
+  (fboundp 'starts-with)
+  (defun starts-with (x y) 
+    (and
+      (>= (length x) (length y))
+      (equalp y (subseq x 0 (length y))))))
 
 (defun is-room (x s)
   (or
@@ -416,6 +420,7 @@
 		(equal (window-res x) "xterm")
 		(equal (window-res x) "urxvt")
 		(equal (window-res x) "rxvt")
+		(equal (window-res x) "mlterm")
 		)
 	      (or
 		(equal (window-title x) "emails")

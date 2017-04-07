@@ -594,7 +594,7 @@
      (amount 
        (if visible
 	 (- 30 h)
-	 (- 3 h)
+	 (- 7 h)
 	 )
        )
      )
