@@ -1,20 +1,6 @@
 (in-package :stumpwm)
 (defun union-mild (a b) (union a b :test 'equalp))
 
-(unless
-  (fboundp 'ends-with)
-  (defun ends-with (x y) 
-    (and
-      (>= (length x) (length y))
-      (equalp y (subseq x (- (length x) (length y)) (length x))))))
-
-(unless
-  (fboundp 'starts-with)
-  (defun starts-with (x y) 
-    (and
-      (>= (length x) (length y))
-      (equalp y (subseq x 0 (length y))))))
-
 (defun is-room (x s)
   (or
    (equal (window-role x) s)
@@ -99,7 +85,7 @@
 	    ) nil)
 	(if (and
 	      (equal (window-class x) "Vacuum")
-	      (starts-with (window-title x) "Vacuum-IM - ")
+	      (starts-with-subseq  "Vacuum-IM - " (window-title x))
 	      )
 	  (list 
 	    ;"2" 
@@ -120,7 +106,7 @@
 		)
 	      (and
 		(equal (window-class x) "Vacuum")
-		(ends-with (window-title x) " - Conference")
+		(ends-with-subseq  " - Conference" (window-title x))
 		)
 	      )
 	  (cond
@@ -159,38 +145,38 @@
 	    (t nil)
 	    ) nil)
 	(if
-	  (starts-with (window-title x) "IRC screen: ")
+	  (starts-with-subseq  "IRC screen: " (window-title x))
 	  (list "im" "ii-interactive" "irc")
 	  )
 	(if
           (or
-            (starts-with (window-title x) "IRC screen: irc/")
-            (starts-with (window-title x) "IRC screen: irc.freenode.net/")
-            (starts-with (window-title x) "IRC screen: irc.oftc.net/")
+            (starts-with-subseq "IRC screen: irc/"               (window-title x))
+            (starts-with-subseq "IRC screen: irc.freenode.net/"  (window-title x))
+            (starts-with-subseq "IRC screen: irc.oftc.net/"      (window-title x))
             )
 	  (list "xkbgr/0")
 	  )
 	(if
-	  (starts-with (window-title x) "XMPP screen: ")
+	  (starts-with-subseq  "XMPP screen: " (window-title x))
 	  (list "im" "mcabber-interactive" "xmpp")
 	  )
 	(if
           (and
-            (starts-with (window-title x) "XMPP screen: raskin@dev.mccme.ru/out/")
-            (ends-with (window-title x) "@dev.mccme.ru")
+            (starts-with-subseq  "XMPP screen: raskin@dev.mccme.ru/out/" (window-title x))
+            (ends-with-subseq  "@dev.mccme.ru" (window-title x))
             )
           (list "im" "mcabber-interactive" "xkbgr/1")
           )
 	(if
 	  (or
-	    (starts-with (window-title x) "IRC summary: ")
+	    (starts-with-subseq  "IRC summary: " (window-title x))
 	    (equalp (window-title x) "ii-irc-summary")
 	    )
 	  (list "im" "ii-summary" "irc")
 	  )
 	(if
 	  (or
-	    (starts-with (window-title x) "XMPP summary: ")
+	    (starts-with-subseq  "XMPP summary: " (window-title x))
 	    (equalp (window-title x) "mcabber-xmpp-summary")
 	    )
 	  (list "im" "mcabber-summary" "xmpp")
@@ -272,6 +258,7 @@
 	      (equal (window-res x) "xterm")
 	      (equal (window-res x) "urxvt")
 	      (equal (window-res x) "rxvt")
+              (equal (window-res x) "mlterm")
 	      )
 	  (list "shell" "term"))
 	(if (or
@@ -306,7 +293,7 @@
                         "singles" "sixteen" "slant" "solo" "tents" "towers" "twiddle"
                         "undead" "unequal" "unruly" "untangle"
                         ) :test 'equalp)
-                (starts-with (window-class x) "sgt-puzzle-")
+                (starts-with-subseq  "sgt-puzzle-" (window-class x))
                 )
 	      (equalp
 		(window-class x)
@@ -361,7 +348,7 @@
 	  (or
 	    (equalp (window-title x) "qemu")
 	    (equalp (window-class x) "qemu")
-	    (starts-with (window-class x) "qemu-")
+	    (starts-with-subseq  "qemu-" (window-class x))
 	    )
 	  (list "qemu"))
 	(if (or
@@ -381,8 +368,8 @@
 	      (equalp (window-res x) "openscad")
 	      (equalp (window-res x) "rapcad")
 	      (equalp (window-class x) "replicatorg-app-base")
-	      (starts-with (window-title x) "Skeiniso")
-	      (starts-with (window-title x) "Skeinlayer")
+	      (starts-with-subseq  "Skeiniso" (window-title x))
+	      (starts-with-subseq  "Skeinlayer" (window-title x))
 	      )
 	  (list "graphics" "editor"))
 	(if (or
@@ -396,11 +383,12 @@
 		(equal (window-res x) "xterm")
 		(equal (window-res x) "urxvt")
 		(equal (window-res x) "rxvt")
+		(equal (window-res x) "mlterm")
 		)
 	      (> (length (window-title x)) 12)
 	      (or
 		(equal (subseq (window-title x) 0 12) "ssh session:")
-		(starts-with (window-title x) "ssh-do-there: ")
+		(starts-with-subseq  "ssh-do-there: " (window-title x))
 		)
 	      )
 	  (list "ssh" "base" "xkbgr/0"))
@@ -409,6 +397,7 @@
 		(equal (window-res x) "xterm")
 		(equal (window-res x) "urxvt")
 		(equal (window-res x) "rxvt")
+		(equal (window-res x) "mlterm")
 		)
 	      (or
 		(equal (window-title x) "web-streams")
@@ -447,7 +436,7 @@
 	  (list "vnc" "ssh"))
 	(if (or
 	      (equal (window-class x) "Linuxdcpp")
-	      (ends-with (window-title x) "(BitTornado)")
+	      (ends-with-subseq  "(BitTornado)" (window-title x))
 	      )
 	  (list "p2p"))
 	(if (or
@@ -456,13 +445,13 @@
 	  (list "dc" "150"))
 	(if (or
 	      (equal (window-class x) "bittornado")
-	      (ends-with (window-title x) "(BitTornado)")
+	      (ends-with-subseq  "(BitTornado)" (window-title x))
 	      )
 	  (list "bt" "160"))
 	(if (or
 	      (equal (window-title x) "input-history (~/.local/share/uzbl) - VIM")
 	      (equal (window-title x) "input-history + (~/.local/share/uzbl) - VIM")
-	      (ends-with (window-title x) ".local/share/uzbl/forms) - VIM")
+	      (ends-with-subseq  ".local/share/uzbl/forms) - VIM" (window-title x))
 	      (equal (window-class x) ".uzbl-wrapped")
 	      (equal (window-class x) ".uzbl-core-wrapped")
 	      (equal (window-class x) ".wrapped-uzbl")
@@ -475,7 +464,7 @@
 	  (list "light-browser" "slimer" "slimerjs"))
 	(if (or
 	      (equal (window-title x) "input-history (~/.local/share/uzbl) - VIM")
-	      (ends-with (window-title x) ".local/share/uzbl/forms) - VIM")
+	      (ends-with-subseq  ".local/share/uzbl/forms) - VIM" (window-title x))
 	      (equal (window-class x) ".uzbl-wrapped")
 	      (equal (window-class x) ".uzbl-core-wrapped")
 	      (equal (window-class x) "uzbl")
@@ -488,15 +477,15 @@
 	  (list "light-browser" "browser"))
 	(if (and
 	      (equal (window-class x) "Lazarus")
-	      (starts-with (window-title x) "Lazarus IDE"))
+	      (starts-with-subseq  "Lazarus IDE" (window-title x)))
 	  (list "lazarus-ide-window"))
 	(if (and
 	      (equal (window-class x) "Lazarus")
-	      (starts-with (window-title x) "Messages"))
+	      (starts-with-subseq  "Messages" (window-title x)))
 	  (list "lazarus-message-window"))
 	(if (and
 	      (equal (window-class x) "Lazarus")
-	      (starts-with (window-title x) "Object Inspector"))
+	      (starts-with-subseq  "Object Inspector" (window-title x)))
 	  (list "lazarus-inspector-window"))
 	(if (and
 	      (equal (window-class x) "Dia")
@@ -512,7 +501,7 @@
 	  (list "Limp")
 	  )
 	(if (or
-	      (starts-with (window-title x) "SQuirreL SQL")
+	      (starts-with-subseq  "SQuirreL SQL" (window-title x))
 	      )
 	  (list "SquirrelSQL" "editor" "sql")
 	  )
