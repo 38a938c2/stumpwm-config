@@ -61,6 +61,7 @@
 (define-key *root-map* (kbd "Sys_Req") "globally-previous-wt")
 (define-key *root-map* (kbd "SunPrint_Screen") "globally-previous-wt")
 (define-key *root-map* (kbd "ISO_Level3_Shift") "activate-urgent")
+(define-key *root-map* (kbd "XF86MenuKB") "activate-urgent")
 
 (define-key *root-map* (kbd "F12") "gselect .system")
 (define-key *root-map* (kbd "F12") "gselect .tag-store")
@@ -265,6 +266,8 @@
 
 (define-key *top-map* (kbd "C-ISO_Level3_Shift") "exec type-chosen-string")
 (define-key *top-map* (kbd "C-M-ISO_Level3_Shift") "exec type-unicode-symbol")
+(define-key *top-map* (kbd "C-XF86MenuKB") "exec type-chosen-string")
+(define-key *top-map* (kbd "C-M-XF86MenuKB") "exec type-unicode-symbol")
 
 (define-key *top-map* (kbd "M-!") "eval (xlib:lock-group *display* :group 0)")
 (define-key *top-map* (kbd "M-@") "eval (xlib:lock-group *display* :group 1)")
