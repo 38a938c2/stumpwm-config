@@ -181,6 +181,7 @@
 (define-key *root-map* (kbd "M-x") "exec urxvt -e mcabber-base-screen")
 
 (define-key *root-map* (kbd "C-!") "exec run-popular-command")
+(define-key *root-map* (kbd "M-!") "exec run-popular-command-subuser")
 
 ;(define-key *top-map* (kbd "H-SunPageUp") "exec increase-level PCM +1")
 ;(define-key *top-map* (kbd "H-SunPageDown") "exec increase-level PCM -1")

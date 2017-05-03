@@ -25,6 +25,17 @@
 
 (asdf::compute-source-registry)
 
+(defun load-lisp-system-user-deps ()
+  (load
+    (concatenate 
+      'string *HOME*
+      "/.user-lisp-shell-rc.lisp.deps/lib/common-lisp/user-dependencies/uiop/version--system.fasl"))
+  (load
+    (concatenate 
+      'string *HOME*
+      "/.user-lisp-shell-rc.lisp.deps/lib/common-lisp/user-dependencies/user-dependencies--all-systems.fasl")))
+(ignore-errors (load-lisp-system-user-deps))
+
 (run-shell-command "echo -n ' ' \| xsel -i")
 
 (load-rcpart-old "defpass")

@@ -4,6 +4,65 @@
 (defun lock-rule-by-title (title)
   (list 0 T T :title title))
 
+(defun run-as-subuser
+  (command
+    &key
+    (suffix (funcall (read-from-string "user-lisp-shell::timestamp")))
+    (environment
+      `(("DISPLAY"
+         ,(stumpwm::screen-display-string (current-screen) nil))))
+    slurp-stdout 
+    (on-create 'values) copy-to-home touch-in-home grant-in-home
+    home pty)
+  (let ((*package* (find-package :user-lisp-shell)))
+    (funcall
+      (read-from-string "user-lisp-shell::run-as-subuser")
+      suffix
+      (if (and (stringp command) (cl-ppcre:scan "^[-A-Za-z0-9_@.,]+$" command))
+        (funcall (read-from-string "user-lisp-shell::which") command)
+        command)
+      :environment environment :slurp-stdout slurp-stdout
+      :grant-in-home (if (listp grant-in-home) grant-in-home (list grant-in-home))
+      :home home :pty pty
+      :on-create
+      (lambda (home)
+        (loop
+          for x in (if (listp touch-in-home) touch-in-home (list touch-in-home))
+          do (uiop:run-program
+               (list "touch" (format nil "~a/~a" home x))))
+        (loop
+          for x in (if (listp copy-to-home) copy-to-home (list copy-to-home))
+          for x-list := (if (listp x) x (list x x))
+          for from := (first x-list)
+          for to := (second x-list)
+          for full-to := (format nil "~a/~a" home to)
+          for full-from := (format nil "~a/~a" (getenv "HOME") from)
+          do (ensure-directories-exist full-to)
+          do (uiop:run-program (list "cp" "-Tr" full-from full-to)))
+        (funcall on-create home)))))
+
+(defcommand run-as-subuser-single-string (s) ((:rest "Command to run: "))
+            "Run a command as subuser"
+  (let*
+    ((split (cl-ppcre:split "#" s))
+     (command (first split))
+     (skel (second split))
+     (grants (cl-ppcre:split "!" (third split)))
+     (env (mapcar (lambda (x)
+                    (cl-ppcre:split "=" x))
+                  (ignore-errors (subseq split 3)))))
+    (run-as-subuser
+      command
+      :copy-to-home
+      (unless
+        (member skel '("" nil "-" ".") :test 'equal)
+        `((,skel ".")))
+      :grant-in-home grants
+      :environment
+      (cons
+        `("DISPLAY" ,(screen-display-string (current-screen) nil))
+        (mapcar (lambda (x) (if (= (length x) 1) (first x) x)) env)))))
+
 (defcommand restart-xwatchsystem () ()
   "Kill old xwatchsystem instances"
   (run-shell-command "ps auxwww | egrep ' -title XWatchSystem ' | sed -e 's/\\s\\+/ /g' | cut -f 2 -d' ' | xargs kill " T)
@@ -259,6 +318,10 @@
     (load-rcpart "defparam")
     (load-rcpart "setvar")
     )
+
+(defcommand reload-externals () ()
+            "Load externally managed definitions"
+            (load-lisp-system-user-deps))
 
 (defcommand pull+push+renumber (argtags) ((:rest "Tags to select: "))
   "Select windows by tags and renumber them"
@@ -612,9 +675,26 @@
   (ftg-set-tags "HEAVY-BROWSER")
   (unless
     (ftg-windows)
-    (run-shell-command "@pulseaudio firefox")
-    )
-  )
+    ;(run-shell-command "@pulseaudio firefox")
+    (eval
+      (read-from-string
+        "(user-lisp-shell::system-lisp-command
+           `(device-grab-commands::grab-devices
+              ',(mapcar
+                  'namestring
+                  (uiop:directory-files \"/dev/snd/\"))
+              :subuser \"firefox\")
+           :file-auth t :physical-auth 3)"))
+    (run-as-subuser 
+      (list "@pulseaudio" "firefox")
+      :pty t
+      :suffix "firefox"
+      :home (format nil "~a/tmp/firefox-home/" (getenv "HOME"))
+      :environment
+      `(("DISPLAY" ,(screen-display-string (current-screen) nil))
+        ("PATH" ,(getenv "PATH"))
+        ("LANG" "en_US.UTF-8")
+        ("XDG_DATA_DIRS" ,(getenv "XDG_DATA_DIRS"))))))
 
 (defcommand 
   light-browser-group () ()
@@ -1096,3 +1176,4 @@
                     s))
                 (window-tags window)))
             :test 'equalp)))
+
