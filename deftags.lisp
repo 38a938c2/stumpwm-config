@@ -308,6 +308,7 @@
 	      (equal (window-class x) "Zathura")
 	      (equal (window-class x) "zathura")
 	      (equal (window-class x) ".zathura-wrapped")
+	      (equal (window-class x) ".zathura-wrapped_")
 	      (equal (window-class x) "MuPDF")
 	      (equal (window-class x) "XSane")
 	      (equal (window-res x) "gv")
