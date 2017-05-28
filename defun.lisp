@@ -673,7 +673,7 @@
   heavy-browser-group () ()
   "Go to heavy browser group and launch a firefox if none are running"
   (ftg-set-tags "HEAVY-BROWSER")
-  (unless
+  #+nil(unless
     (ftg-windows)
     ;(run-shell-command "@pulseaudio firefox")
     (eval
@@ -1177,3 +1177,18 @@
                 (window-tags window)))
             :test 'equalp)))
 
+(defun get-current-window-pid ()
+  (first (xlib:get-property (window-xwin (current-window)) :_NET_WM_PID)))
+
+(defun get-current-window-cmdline ()
+  (string-trim
+    (string #\Newline)
+    (uiop:run-program
+      (format nil "ps -p ~a -wwwo cmd | tail -n +2"
+              (get-current-window-pid))
+      :output :string)))
+
+(defun get-current-window-ff-profile ()
+  (second (member "--profile"
+                  (cl-ppcre:split " " (get-current-window-cmdline))
+                  :test 'equal)))
