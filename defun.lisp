@@ -131,6 +131,7 @@
 	(equal (subseq (window-title window) 0 2) "* ")
 	)
       t)
+    (not (tagged-p window "ff"))
     ))
 
 (defun renumber-window (w n)
