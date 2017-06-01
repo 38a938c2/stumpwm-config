@@ -1189,7 +1189,9 @@
               (get-current-window-pid))
       :output :string)))
 
-(defun get-current-window-ff-profile ()
+(defcommand
+  get-current-window-ff-profile () ()
+  "Obtain the FF profile directory from the command line of the current window"
   (second (member "--profile"
                   (cl-ppcre:split " " (get-current-window-cmdline))
                   :test 'equal)))
