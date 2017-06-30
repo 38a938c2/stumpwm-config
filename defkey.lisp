@@ -254,6 +254,7 @@
 (define-key *root-map* (kbd "C-S-F5") "exec CHOOSE_SLIMERJS_USER_PREFIX=1 site-slimerjs-chosen-with-extras")
 
 (define-key *root-map* (kbd "C-F4") "exec subuser-firefox-chosen")
+(define-key *root-map* (kbd "C-S-F4") "exec marionette-save-and-open-chosen")
 
 (define-key *root-map* (kbd "C-F1") "exec urxvt -e meta-screen")
 
