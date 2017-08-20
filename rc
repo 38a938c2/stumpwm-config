@@ -40,6 +40,9 @@
 
 (load-rcpart-old "defpass")
 
+(defun stumpwm::string-to-utf8 (string)
+  (sb-ext:string-to-octets string :external-format :utf-8))
+
 (set-module-dir "/home/repos/stumpwm-contrib/")
 (load-module "windowtags")
 (load-module "ttf-fonts")
