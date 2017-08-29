@@ -1,6 +1,7 @@
 (in-package :stumpwm)
 
 (setf *default-package* :stumpwm)
+(setf *package* (find-package :stumpwm))
 
 (setf *debug-level* 0)
 (sb-ext:disable-debugger)
