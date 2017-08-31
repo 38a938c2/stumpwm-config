@@ -23,7 +23,9 @@
 (defun load-rcpart (name)
   (load (concatenate 'string *HOME* "/src/lsp/stumpwm-config/" name ".lisp")))
 
-(asdf::compute-source-registry)
+(loop
+  for k from 1 to 3
+  until (ignore-errors (asdf::compute-source-registry)))
 
 (defun load-lisp-system-user-deps ()
   (load
