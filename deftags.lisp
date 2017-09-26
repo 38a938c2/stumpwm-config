@@ -263,6 +263,7 @@
 	  (list "shell" "term"))
 	(if (or
 	      (equal (window-title x) "su shell")
+	      (equal (window-title x) "su screen")
 	      )
 	  (list 
 	    ;"9" 

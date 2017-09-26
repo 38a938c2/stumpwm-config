@@ -729,7 +729,7 @@
   (ftg-set-tags "root")
   (unless
     (ftg-windows)
-    (run-shell-command "urxvt -e start-su")
+    (run-shell-command "echo '(sudo::root-urxvt)' | send-to-user-lisp-shell-evaluator")
     )
   )
 
