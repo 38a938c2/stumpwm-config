@@ -40,7 +40,7 @@
 (define-key *root-map* (kbd "M-W") "exec ~/.nix-personal/personal-result/webkit_gtk2/bin/webkit-program-GtkLauncher")
 
 (define-key *root-map* (kbd "C-f") "exec urxvt -lsp 9 -fn 'xft:DejaVu Sans Mono:pixelsize=16:antialias=true:weight=' -e zsh -c 'xtitle web-streams; screen -D -RR -S view-web-streams -U view-web-streams'")
-(define-key *root-map* (kbd "C-F") "exec urxvt -lsp 9 -fn 'xft:DejaVu Sans Mono:pixelsize=16:antialias=true:weight=' -e zsh -c 'xtitle web-streams; screen -D -RR -S view-web-streams -U view-web-stream-texts-non-deferred'")
+(define-key *root-map* (kbd "C-F") "exec ( ls ~/queries/web-streams/::all-fresh-non-deferred/ | grep '[.]txt$' && urxvt -lsp 9 -fn 'xft:DejaVu Sans Mono:pixelsize=16:antialias=true:weight=' -e zsh -c 'xtitle web-streams; screen -D -RR -S view-web-streams -U view-web-stream-texts-non-deferred' ) || ( ls ~/queries/web-streams/::all-fresh-non-deferred/fresh/ | grep -v '[.]txt$' | grep . && gqview ~/queries/web-streams/::all-fresh-non-deferred/ )")
 (define-key *root-map* (kbd "C-M") "exec mlterm -e zsh -c 'launch-view-emails'")
 (define-key *root-map* (kbd "C-M-M") "exec mlterm -e zsh -c 'launch-view-emails edit-new-email'")
 (define-key *root-map* (kbd "C-M-m") "exec mlterm -e zsh -c 'launch-view-emails view-mail-summaries'")
@@ -183,6 +183,7 @@
 
 (define-key *root-map* (kbd "C-!") "exec run-popular-command")
 (define-key *root-map* (kbd "M-!") "exec run-popular-command-subuser")
+(define-key *root-map* (kbd "C-M-!") "exec run-popular-command-lisp")
 
 ;(define-key *top-map* (kbd "H-SunPageUp") "exec increase-level PCM +1")
 ;(define-key *top-map* (kbd "H-SunPageDown") "exec increase-level PCM -1")
