@@ -41,3 +41,4 @@
 
 (setenv "SHELL" "/run/current-system/sw/bin/zsh")
 (setenv "SBCL_HOME" "")
+(setenv "NIX_LISP_EARLY_OPTIONS" "")
