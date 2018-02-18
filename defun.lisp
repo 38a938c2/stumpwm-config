@@ -543,6 +543,7 @@
 (defcommand
   reference-frame () ()
   "Create a reference frame that can house an URxvt of 80 symbols (820 px)"
+  (focus-frame-by-tag "TG/MAIN")
   (let*
     ((group (current-group))
      (old-frame (tile-group-current-frame group))
@@ -1037,13 +1038,24 @@
 	   )
 	 ))
      (f3 (frame-by-number g f3n))
-     (f1 (tile-group-current-frame g))) 
-    (setf (frame-tags f1) 
-	  '("TG/MAIN"))
-    (setf (frame-tags f2) '("TG/MODELINE"))
+     (f1 (tile-group-current-frame g))
+     (f4n
+       (progn
+         (focus-frame g f2)
+         (split-frame
+           (current-group) :column
+           16)))
+     (f2 (frame-by-number g f2n))
+     (f4 (frame-by-number g f4n))
+     ) 
+    (setf (frame-tags f1) '("TG/MAIN"))
+    (setf (frame-tags f4) '("TG/MODELINE"))
     (setf (frame-tags f3) '("TG/BREAKING-NEWS"))
+    (setf (frame-tags f2) '("TG/UNCAPTURE"))
     (merge-frame f2 f1)
     (merge-frame f3 f1)
+    (merge-frame f4 f1)
+    (focus-frame g f1)
     )
   )
 

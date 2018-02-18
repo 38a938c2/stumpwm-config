@@ -74,6 +74,7 @@
 (run-shell-command "echo -n ' ' | xsel -i")
 
 (do-status-split)
+(reference-frame)
 (place-my-status-windows)
 
 ; vim:filetype=lisp
