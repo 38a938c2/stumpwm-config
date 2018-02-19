@@ -73,6 +73,10 @@
 
 (run-shell-command "echo -n ' ' | xsel -i")
 
+(defun handle-rp-commands (&rest arguments)
+  arguments
+  nil)
+
 (do-status-split)
 (reference-frame)
 (place-my-status-windows)

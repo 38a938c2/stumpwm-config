@@ -1207,3 +1207,17 @@
   (second (member "--profile"
                   (cl-ppcre:split " " (get-current-window-cmdline))
                   :test 'equal)))
+
+(defcommand
+  get-current-window-marionette-socket () ()
+  (let*
+    ((w (current-window))
+     (xw (window-xwin w))
+     (p (xlib:get-property xw :wm_client_machine))
+     (ps (map 'string 'code-char p))
+     (s
+       (format
+         nil "/tmp/ff.~a/marionette-socket"
+         (cl-ppcre:regex-replace "[.]" ps "/sockets/")))
+     )
+    (when (probe-file s) s)))
