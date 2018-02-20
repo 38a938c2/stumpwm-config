@@ -2,7 +2,7 @@
 
 (setf *default-package* :stumpwm)
 (setf *package* (find-package :stumpwm))
-(ignore-errors (uiop:launch-program (list "stumpish" "eval" "(in-package :stumpwm)")))
+(ignore-errors (uiop:run-program (list "sh" "-c" "stumpish eval '(in-package :stumpwm)' &")))
 
 (setf *debug-level* 0)
 (sb-ext:disable-debugger)
