@@ -23,20 +23,12 @@
 (defun load-rcpart (name)
   (load (concatenate 'string *HOME* "/src/lsp/stumpwm-config/" name ".lisp")))
 
+(run-hook *start-hook*)
+
 (loop
   for k from 1 to 3
   until (ignore-errors (asdf::compute-source-registry)))
 
-(defun load-lisp-system-user-deps ()
-  (load
-    (concatenate 
-      'string *HOME*
-      "/.user-lisp-shell-rc.lisp.deps/lib/common-lisp/user-dependencies/uiop/version--system.fasl"))
-  (load
-    (concatenate 
-      'string *HOME*
-      "/.user-lisp-shell-rc.lisp.deps/lib/common-lisp/user-dependencies/user-dependencies--all-systems.fasl")))
-(ignore-errors (load-lisp-system-user-deps))
 
 (run-shell-command "echo -n ' ' \| xsel -i")
 
@@ -77,8 +69,6 @@
   arguments
   nil)
 
-(do-status-split)
-(reference-frame)
-(place-my-status-windows)
+(listen-on-socket (format nil "~a/.stumpwm-socket" *HOME*))
 
 ; vim:filetype=lisp

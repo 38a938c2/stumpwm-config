@@ -18,5 +18,7 @@
 (add-hook *focus-group-hook* 'echo-switch-group-hook)
 
 (setf *start-hook* '())
-(add-hook *start-hook* 'fclear)
+(add-hook *start-hook* 'place-my-status-windows)
+(add-hook *start-hook* 'reference-frame)
+(add-hook *start-hook* 'do-status-split)
 (add-hook *start-hook* 'modeline-killer-start-hook)
