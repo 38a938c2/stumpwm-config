@@ -22,8 +22,9 @@
   (load (concatenate 'string *HOME* "/src/rc/stumpwm/" name ".lisp")))
 (defun load-rcpart (name)
   (load (concatenate 'string *HOME* "/src/lsp/stumpwm-config/" name ".lisp")))
-
-(run-hook *start-hook*)
+; https://github.com/7c6f434c/lang-os
+(defun load-rcpart-langos (name)
+  (load (concatenate 'string *HOME* "/src/nix/lang-os/stumpwm/" name ".lisp")))
 
 (loop
   for k from 1 to 3
@@ -68,6 +69,10 @@
 (defun handle-rp-commands (&rest arguments)
   arguments
   nil)
+
+(load-rcpart-langos "wse-props")
+(load-rcpart-langos "stumpwm-socket")
+(load-rcpart-langos "props-to-tags")
 
 (listen-on-socket (format nil "~a/.stumpwm-socket" *HOME*))
 
