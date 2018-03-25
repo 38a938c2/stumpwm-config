@@ -1262,3 +1262,8 @@
 
 (defcommand rerun-start-hook () ()
             (run-hook *start-hook*))
+
+(defcommand withdraw-dead-windows () ()
+            (act-on-matching-windows
+              (w :screen) (not (ignore-errors (window-property w :asd) t))
+              (withdraw-window w)))
