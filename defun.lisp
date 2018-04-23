@@ -277,14 +277,15 @@
 	    )
 
 (defun window-alive (win)
-  (let
-    ((marker (random 255)))
-    (xlib:change-property (window-xwin win)
-			  :STUMPWM_CHECK_IF_ALIVE
-			  (list marker)
-			  :UINT 8)
-    (equal (list marker) (xlib:get-property (window-xwin win)
-				 :STUMPWM_CHECK_IF_ALIVE))))
+  (ignore-errors
+    (let
+      ((marker (random 255)))
+      (xlib:change-property (window-xwin win)
+                            :STUMPWM_CHECK_IF_ALIVE
+                            (list marker)
+                            :UINT 8)
+      (equal (list marker) (xlib:get-property (window-xwin win)
+                                              :STUMPWM_CHECK_IF_ALIVE)))))
 
 (defcommand dead-windows-cleanup () ()
 	    "Kill the windows that mysteriously disappeared"
@@ -292,9 +293,10 @@
 	      (lambda(x) 
 		(if (not (window-alive x)) 
 		  (progn 
-		    (move-window-to-group x (current-group))
-		    (fclear)
-		    (really-raise-window x)
+		    (ignore-errors
+                      (move-window-to-group x (current-group))
+                      (fclear)
+                      (really-raise-window x))
 		    (destroy-window x))))
 	      (screen-windows (current-screen))))
 
