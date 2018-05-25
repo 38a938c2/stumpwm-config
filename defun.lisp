@@ -665,13 +665,13 @@
 	 )
        )
      )
+    (unless (= amount 0)
     (expand-tree bn-frame amount :top)
     (expand-tree m-frame (- amount) :bottom)
     (tree-iterate bn-frame (lambda (leaf) (sync-frame-windows group leaf)))
     (tree-iterate m-frame (lambda (leaf) (sync-frame-windows group leaf)))
     nil
-    )
-  )
+    )))
 
 (defcommand 
   heavy-browser-group () ()
