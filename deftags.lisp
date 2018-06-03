@@ -475,6 +475,8 @@
 	      (equal (window-class x) ".midori-wrapped")
 	      (equal (window-class x) ".wrapped-midori")
 	      (equalp (window-class x) "slimerjs")
+              (equal "gvim-web" (window-role x))
+              (starts-with-subseq "gvim-web-" (window-role x))
 	      )
 	  (list "light-browser" "browser"))
 	(if (and
