@@ -291,7 +291,9 @@
 	    "Kill the windows that mysteriously disappeared"
 	    (mapcar
 	      (lambda(x) 
-		(if (not (window-alive x)) 
+		(if (not (ignore-errors
+                           (maximize-window x)
+                           (window-alive x)) )
 		  (progn 
 		    (ignore-errors
                       (move-window-to-group x (current-group))
@@ -1267,5 +1269,7 @@
 
 (defcommand withdraw-dead-windows () ()
             (act-on-matching-windows
-              (w :screen) (not (ignore-errors (window-property w :asd) t))
+              (w :screen) (not (ignore-errors (window-property w :asd)
+                                              (maximize-window w)
+                                              t))
               (withdraw-window w)))
