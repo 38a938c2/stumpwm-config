@@ -412,6 +412,8 @@
 		(equal (window-res x) "urxvt")
 		(equal (window-res x) "rxvt")
 		(equal (window-res x) "mlterm")
+                (and (null (window-res x))
+                     (null (window-class x)))
 		)
 	      (or
 		(equal (window-title x) "emails")
