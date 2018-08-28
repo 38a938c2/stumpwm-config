@@ -295,6 +295,7 @@
                         "undead" "unequal" "unruly" "untangle"
                         ) :test 'equalp)
                 (starts-with-subseq  "sgt-puzzle-" (window-class x))
+                (starts-with-subseq  ".sgt-puzzle-" (window-class x))
                 )
 	      (equalp
 		(window-class x)
