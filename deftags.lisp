@@ -181,6 +181,11 @@
 	    )
 	  (list "im" "mcabber-summary" "xmpp")
 	  )
+        (if
+          (or
+            (starts-with-subseq "weechat:matrix:" (window-res x))
+            (starts-with-subseq "Weechat: Matrix: " (window-title x)))
+          (list "im" "matrix" "weechat"))
 	(if (and 
 	      (or
 		(equal (window-class x) "Thunderbird-bin")
