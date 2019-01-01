@@ -734,7 +734,7 @@
   (ftg-set-tags "root")
   (unless
     (ftg-windows)
-    (run-shell-command "echo '(sudo::root-urxvt)' | send-to-user-lisp-shell-evaluator")
+    (run-shell-command "lisp-shell-run '(progn (sudo::root-urxvt) (sleep 1))'")
     )
   )
 
