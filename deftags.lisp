@@ -406,9 +406,11 @@
 		(equal (window-res x) "urxvt")
 		(equal (window-res x) "rxvt")
 		(equal (window-res x) "mlterm")
+		(equal (window-class x) "Gvim")
 		)
 	      (or
 		(equal (window-title x) "web-streams")
+		(equal (window-role x) "web-streams")
 		)
 	      )
 	  (list "web-streams" "viewers" "view" "xkbgr/0"))
