@@ -186,6 +186,8 @@
             (starts-with-subseq "weechat:matrix:" (window-res x))
             (starts-with-subseq "Weechat: Matrix: " (window-title x)))
           (list "im" "matrix" "weechat"))
+        (if (equal "Signal" (window-class x))
+          (list "im" "signal"))
 	(if (and 
 	      (or
 		(equal (window-class x) "Thunderbird-bin")
