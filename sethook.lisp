@@ -1,5 +1,5 @@
 (setf *urgent-window-hook* '())
-(add-hook *urgent-window-hook* 'raise-urgent-window-hook)
+(add-hook *urgent-window-hook* 'urgent-window-match-tags)
 
 (setf *focus-window-hook* '())
 (add-hook *focus-window-hook* 'remember-focus-window-hook)
@@ -22,3 +22,10 @@
 (add-hook *start-hook* 'reference-frame)
 (add-hook *start-hook* 'do-status-split)
 (add-hook *start-hook* 'modeline-killer-start-hook)
+
+(add-hook *raise-request-hook* 'raise-request-match-tags)
+
+(add-hook *property-notify-hook* 'early-window-name-update)
+(add-hook *property-notify-hook* 'report-windows)
+(add-hook *new-window-hook* 'report-windows)
+(add-hook *destroy-window-hook* 'report-windows)

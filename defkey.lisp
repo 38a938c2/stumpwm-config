@@ -47,7 +47,7 @@
 ;(define-key *root-map* (kbd "C-F") "exec uzbl $(find-related-uri)") 
 
 (define-key *root-map* (kbd "C-B") "exec urxvt -e zsh -c 'xtitle breaking-news; screen -D -RR -S view-breaking-news -U view-breaking-news'")
-(define-key *root-map* (kbd "C-M-B") "exec purge-all-from-pending; rm ~/.breaking-news/zzz-naggers; find ~/.breaking-news/ -size 0 -print0 | xargs -0 rm; fast-lane-emails-to-breaking-news; kill-gajim-passwords ; kill-gajim-statuses; sort-gajim-config; clean-gqview-geometry; cd ~/src/rc/popularity; mtn ci -m 'automated popularity commit'; ~/.user-lisp-shell.bin --non-interactive --eval '(commit-rc)'; purge-all-from-pending")
+(define-key *root-map* (kbd "C-M-B") "exec purge-all-from-pending; rm ~/.breaking-news/zzz-naggers; find ~/.breaking-news/ -size 0 -print0 | xargs -0 rm; fast-lane-emails-to-breaking-news; kill-gajim-passwords ; kill-gajim-statuses; sort-gajim-config; clean-gqview-geometry; cd ~/src/rc/popularity; mtn ci -m 'automated popularity commit'; ~/.user-lisp-shell.bin --non-interactive --eval '(commit-rc)'; purge-all-from-pending;")
 
 (define-key *root-map* (kbd "C-M-f") "exec firefox")
 

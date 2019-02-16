@@ -311,7 +311,8 @@
 (defcommand reload-defhooks () ()
 	    "Only load definitions of hooks from rc"
 	    (load-rcpart "defhook")
-	    (load-rcpart "sethook"))
+	    (load-rcpart "sethook")
+	    (load-rcpart "defreports"))
 
 (defcommand reload-defkeys () ()
 	    "Only load key bindings from rc"

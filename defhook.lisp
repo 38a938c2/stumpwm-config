@@ -20,6 +20,18 @@
       (gselect group)
       )))
 
+(defun urgent-window-match-tags (window)
+  (cond ((tagged-p window "RAISE-URGENT")
+         (pull-w window)
+         (really-raise-window))
+        ((tagged-p window "NOTIFY-URGENT")
+         (alexandria:write-string-into-file
+           (window-title window)
+           (format nil "~a/.breaking-news/za-urgent-windows"
+                   (uiop:getenv "HOME"))
+           :if-exists :append
+           :if-does-not-exist :create))))
+
 (defun remember-focus-window-hook (new old)
   (setf *globally-previous* *globally-current*)
   (when new (setf *globally-current* new)))
@@ -124,3 +136,44 @@
       (ignore-errors (titled-p x "dmenu"))
       (pull-w x) (pull-window x) (really-raise-window x))
     ))
+
+(defun raise-request-match-tags (window)
+  (cond ((tagged-p window "IGNORE-RAISE")
+         (setf *raise-request-deny* t))
+        ((tagged-p window "NOTIFY-RAISE")
+         (alexandria:write-string-into-file
+           (window-title window)
+           (format nil "~a/.breaking-news/za-raised-windows"
+                   (uiop:getenv "HOME"))
+           :if-exists :append
+           :if-does-not-exist :create)
+         (setf *raise-request-deny* t))))
+
+(defparameter *window-reporting* ())
+
+(defun report-windows (&rest args)
+  (declare (ignore args))
+  (alexandria:write-string-into-file
+    (format
+      nil "~{~a~%~}"
+      (remove
+        nil
+        (act-on-matching-windows
+          (w :screen) t
+          (loop for f in *window-reporting*
+                for r := (ignore-errors (funcall f w))
+                when r return r))))
+    (format nil "~a/.breaking-news/zb-window-reports"
+            (uiop:getenv "HOME"))
+    :if-exists :supersede
+    :if-does-not-exist :create))
+
+(defparameter *current-window-rename* nil)
+
+(defun early-window-name-update (w atom)
+  (if (eq atom :wm_name)
+    (ignore-errors
+      (setf *current-window-rename*
+            (list w (window-title w) (xwin-name (window-xwin w))))
+      (setf (window-title w) (xwin-name (window-xwin w))))
+    (setf *current-window-rename* nil)))

@@ -61,6 +61,7 @@
 (load-rcpart "defhook")
 (load-rcpart "setvar")
 (load-rcpart "sethook")
+(load-rcpart "defreports")
 
 (gselect (find-group (current-screen) "Default"))
 
