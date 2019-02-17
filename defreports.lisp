@@ -37,3 +37,11 @@
               (window-title w) ""))
       nil))
   *window-reporting*)
+(push
+  (lambda (w)
+    (when (and (window-title w)
+               (tagged-p w "signal")
+               (title-re-p w "[(][0-9]+[)]")
+               (not (eq w (current-window))))
+      (window-title w)))
+  *window-reporting*)

@@ -27,5 +27,6 @@
 
 (add-hook *property-notify-hook* 'early-window-name-update)
 (add-hook *property-notify-hook* 'report-windows)
+(add-hook *raise-request-hook* 'report-windows)
 (add-hook *new-window-hook* 'report-windows)
 (add-hook *destroy-window-hook* 'report-windows)

@@ -58,10 +58,7 @@
 (load-rcpart "defkey")
 (load-rcpart "defvar")
 (load-rcpart "defun")
-(load-rcpart "defhook")
 (load-rcpart "setvar")
-(load-rcpart "sethook")
-(load-rcpart "defreports")
 
 (gselect (find-group (current-screen) "Default"))
 
@@ -74,6 +71,10 @@
 (load-rcpart-langos "wse-props")
 (load-rcpart-langos "stumpwm-socket")
 (load-rcpart-langos "props-to-tags")
+
+(load-rcpart "defhook")
+(load-rcpart "sethook")
+(load-rcpart "defreports")
 
 (listen-on-socket (format nil "~a/.stumpwm-socket" *HOME*))
 
