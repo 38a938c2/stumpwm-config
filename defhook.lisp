@@ -151,22 +151,37 @@
 
 (defparameter *window-reporting* ())
 
-(defun report-windows (&rest args)
+(defun report-windows-now (&rest args)
   (declare (ignore args))
-  (alexandria:write-string-into-file
-    (format
-      nil "~{~a~%~}"
-      (remove
-        nil
-        (act-on-matching-windows
-          (w :screen) t
-          (loop for f in *window-reporting*
-                for r := (ignore-errors (funcall f w))
-                when r return r))))
-    (format nil "~a/.breaking-news/zb-window-reports"
-            (uiop:getenv "HOME"))
-    :if-exists :supersede
-    :if-does-not-exist :create))
+  (let* ((reports 
+           (remove
+             nil
+             (act-on-matching-windows
+               (w :screen) t
+               (loop for f in *window-reporting*
+                     for r := (ignore-errors (funcall f w))
+                     when r return r))))
+         (target
+           (format nil "~a/.breaking-news/zb-window-reports"
+                   (uiop:getenv "HOME"))))
+    (cond
+      (reports
+        (alexandria:write-string-into-file
+          (format
+            nil "~{~a~%~}"
+            reports)
+          target
+          :if-exists :supersede
+          :if-does-not-exist :create))
+      ((probe-file target) (delete-file target))
+      (t nil))))
+
+(defun report-windows (&rest args)
+  (unless (find "Delayed window reporter" (bordeaux-threads:all-threads)
+                :key 'bordeaux-threads:thread-name :test 'equal)
+    (bordeaux-threads:make-thread
+      (lambda () (sleep 1) (apply 'report-windows-now args))
+      :name "Delayed window reporter")))
 
 (defparameter *current-window-rename* nil)
 

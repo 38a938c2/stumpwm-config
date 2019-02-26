@@ -16,4 +16,4 @@
     (let* ((*raise-request-deny* nil))
       (run-hook-with-args *raise-request-hook* window)
       (unless *raise-request-deny*
-        (funcall *maybe-raise-window-function*)))))
+        (funcall *maybe-raise-window-function* window)))))
