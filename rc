@@ -26,11 +26,6 @@
 (defun load-rcpart-langos (name)
   (load (concatenate 'string *HOME* "/src/nix/lang-os/stumpwm/" name ".lisp")))
 
-(loop
-  for k from 1 to 3
-  until (ignore-errors (asdf::compute-source-registry)))
-
-
 (run-shell-command "echo -n ' ' \| xsel -i")
 
 (load-rcpart-old "defpass")

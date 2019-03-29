@@ -301,8 +301,8 @@
                         "singles" "sixteen" "slant" "solo" "tents" "towers" "twiddle"
                         "undead" "unequal" "unruly" "untangle"
                         ) :test 'equalp)
-                (starts-with-subseq  "sgt-puzzle-" (window-class x))
-                (starts-with-subseq  ".sgt-puzzle-" (window-class x))
+                (starts-with-subseq  "sgt-puzzle-" (string-downcase (window-class x)))
+                (starts-with-subseq  ".sgt-puzzle-" (string-downcase (window-class x)))
                 )
 	      (equalp
 		(window-class x)
