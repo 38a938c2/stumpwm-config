@@ -582,5 +582,6 @@
     ((intersection tags '("ssh") :test 'equalp) "cat/u-ssh")
     ((intersection tags '("browser") :test 'equalp) "cat/f-browsers")
     ((intersection tags '("editor") :test 'equalp) "cat/c-editors")
+    ((intersection tags '("viewers") :test 'equalp) "cat/cn-viewers")
     )
   )
