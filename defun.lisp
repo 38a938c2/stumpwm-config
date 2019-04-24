@@ -1228,6 +1228,19 @@
      )
     (when (probe-file s) s)))
 
+(defun window-home (&optional (window (current-window)))
+  (first
+    (directory
+      (format nil "/tmp/subuser-homes-~a/~a-????????/"
+              (uiop:getenv "USER") (window-hostname window)))))
+
+(defcommand
+  run-in-current-window-home (&optional (command "my-screen-console-here")
+                                        (window (current-window))) ()
+  (let ((home (window-home window)))
+    (when home
+      (uiop:run-program (format nil "cd ~a; ~a" home command)))))
+
 (defcommand 
   tag-frame-windows (tags) ((:rest "Tags to add: "))
   (act-on-matching-windows
