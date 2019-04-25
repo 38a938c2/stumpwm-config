@@ -1287,3 +1287,18 @@
                                               (maximize-window w)
                                               t))
               (withdraw-window w)))
+
+(defun lisp-shell-run (command)
+  (local-shell-group)
+  (uiop:run-program
+    (list "my-screen" "" "" "screen"
+          "lisp-shell-run"
+          (if (stringp command)
+            command
+            (format nil "~s" command)))))
+(defcommand enter-home-poing () ()
+            (lisp-shell-run
+              `(enter-home-poing)))
+(defcommand enter-tum () ()
+            (lisp-shell-run
+              `(enter-tum)))
