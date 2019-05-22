@@ -252,6 +252,7 @@
 ;(define-key *top-map* (kbd "s-s") "exec ssh-window-chosen")
 
 (define-key *root-map* (kbd "C-F7") "open-ssh-gvim")
+(define-key *root-map* (kbd "C-F6") "exec open-popular-file")
 
 (define-key *root-map* (kbd "C-F5") "exec site-slimerjs-chosen-with-extras")
 (define-key *root-map* (kbd "C-S-F5") "exec CHOOSE_SLIMERJS_USER_PREFIX=1 site-slimerjs-chosen-with-extras")
