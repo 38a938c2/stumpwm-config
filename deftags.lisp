@@ -48,6 +48,12 @@
 	  (list 
 	    ;"0" 
 	    "base" "sh" "xkbgr/!") nil)
+	(if (or
+	      (starts-with-subseq "screen session: " (window-title x))
+	      )
+	  (list 
+	    ;"0" 
+	    "base" "sh" "xkbgr/!") nil)
 	(if (and 
 	      (or 
 		(equal (window-class x) "Carrier")
