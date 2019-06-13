@@ -724,8 +724,11 @@
   "Go to local shell group and launch a default screen session if none are running"
   (ftg-set-tags "SH")
   (unless
-    (ftg-windows)
-    (run-shell-command "urxvt -e my-screen")
+    (pull-titled-window (format nil "screen session: main-screen-~a"
+                                (uiop:getenv "USER")))
+    (run-shell-command
+      (format nil "urxvt -e choose-screen-session main-screen-~a"
+              (uiop:getenv "USER")))
     )
   )
 
@@ -1302,3 +1305,10 @@
 (defcommand enter-tum () ()
             (lisp-shell-run
               `(enter-tum)))
+
+(defcommand pull-titled-window (name) ((:rest "Window title: "))
+            (act-on-matching-windows (w :screen)
+                                     (titled-p w name)
+                                     (pull-w w)
+                                     (pull-window w)
+                                     t))
