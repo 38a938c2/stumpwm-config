@@ -45,3 +45,11 @@
                (not (eq w (current-window))))
       (window-title w)))
   *window-reporting*)
+(push
+  (lambda (w)
+    (when (and (window-title w)
+               (tagged-p w "riot")
+               (title-re-p w "\[[0-9]+\]")
+               (not (eq w (current-window))))
+      (cl-ppcre:regex-replace " - Mozilla Firefox" (window-title w) "")))
+  *window-reporting*)
