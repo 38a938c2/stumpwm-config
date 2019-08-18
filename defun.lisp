@@ -1237,10 +1237,23 @@
       (format nil "/tmp/subuser-homes-~a/~a-????????/"
               (uiop:getenv "USER") (window-hostname window)))))
 
+(defun window-tmp (&optional (window (current-window)))
+  (first
+    (directory
+      (format nil "/tmp/subuser-tmps-~a/~a-????????/"
+              (uiop:getenv "USER") (window-hostname window)))))
+
 (defcommand
   run-in-current-window-home (&optional (command "my-screen-console-here")
                                         (window (current-window))) ()
   (let ((home (window-home window)))
+    (when home
+      (uiop:run-program (format nil "cd ~a; ~a" home command)))))
+
+(defcommand
+  run-in-current-window-tmp (&optional (command "my-screen-console-here")
+                                       (window (current-window))) ()
+  (let ((home (window-tmp window)))
     (when home
       (uiop:run-program (format nil "cd ~a; ~a" home command)))))
 
