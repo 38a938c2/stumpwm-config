@@ -55,7 +55,7 @@
 (load-rcpart "defun")
 (load-rcpart "setvar")
 
-(gselect (find-group (current-screen) "Default"))
+(gselect "Default")
 
 (run-shell-command "echo -n ' ' | xsel -i")
 
