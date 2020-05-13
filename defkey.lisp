@@ -54,6 +54,7 @@
 (define-key *root-map* (kbd "I") "show-im-status")
 
 (define-key *root-map* (kbd "e") "")
+(define-key *root-map* (kbd "RET") "")
 
 (define-key *root-map* (kbd "B") "exec brightness")
 
