@@ -4,7 +4,7 @@
   "Move the specified window (or the current one) to a special hidden group"
   (unless (find-group (current-screen) ".tag-store")
     (gnewbg ".tag-store"))
-  (move-windows-to-group (list (or w (curent-window))) ".tag-store"))
+  (move-windows-to-group (list (or w (current-window))) ".tag-store"))
 
 (defun tagged-p (w tag)
   "Check whether the window w has the tag;
