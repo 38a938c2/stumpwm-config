@@ -55,6 +55,7 @@
 (load-rcpart "defun")
 (load-rcpart "setvar")
 
+(gnewbg ".tag-store")
 (gselect "Default")
 
 (run-shell-command "echo -n ' ' | xsel -i")
