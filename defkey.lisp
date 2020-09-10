@@ -105,6 +105,8 @@
 ;(define-key *root-map* (kbd "S-M-F7") "dia-layout")
 (define-key *root-map* (kbd "S-M-F8") "pull-tag media")
 
+(define-key *root-map* (kbd "S-F11") "pull-tag t")
+
 (define-key *root-map* (kbd "M-1") "select-window-by-number 11")
 (define-key *root-map* (kbd "M-2") "select-window-by-number 12")
 (define-key *root-map* (kbd "M-3") "select-window-by-number 13")
