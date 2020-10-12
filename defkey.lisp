@@ -292,3 +292,12 @@
 
 (define-key *root-map* (kbd "C-M-S-Left") "sprev")
 (define-key *root-map* (kbd "C-M-S-Right") "snext")
+
+(define-key *root-map* (kbd "[") "move-focus left")
+(define-key *root-map* (kbd "]") "move-focus right")
+(define-key *root-map* (kbd "{") "move-focus up")
+(define-key *root-map* (kbd "}") "move-focus down")
+(define-key *root-map* (kbd "M-[") "move-window left")
+(define-key *root-map* (kbd "M-]") "move-window right")
+(define-key *root-map* (kbd "M-{") "move-window up")
+(define-key *root-map* (kbd "M-}") "move-window down")
