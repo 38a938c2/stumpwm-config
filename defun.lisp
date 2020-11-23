@@ -1325,3 +1325,6 @@
                                      (pull-w w)
                                      (pull-window w)
                                      t))
+
+(defcommand start-stumpwm-socket () ()
+            (listen-on-socket (format nil "~a/.stumpwm-socket" *HOME*)))

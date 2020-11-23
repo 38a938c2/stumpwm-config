@@ -63,6 +63,9 @@
 (defun handle-rp-commands (&rest arguments)
   arguments
   nil)
+(defun handle-stumpwm-commands (&rest arguments)
+  arguments
+  nil)
 
 (load-rcpart-langos "wse-props")
 (load-rcpart-langos "stumpwm-socket")
@@ -72,6 +75,6 @@
 (load-rcpart "sethook")
 (load-rcpart "defreports")
 
-(listen-on-socket (format nil "~a/.stumpwm-socket" *HOME*))
+(start-stumpwm-socket)
 
 ; vim:filetype=lisp
