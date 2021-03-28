@@ -301,3 +301,5 @@
 (define-key *root-map* (kbd "M-]") "move-window right")
 (define-key *root-map* (kbd "M-{") "move-window up")
 (define-key *root-map* (kbd "M-}") "move-window down")
+
+(define-key *top-map* (kbd "C-:") "exec xdotool sleep 0.3 click 1")
