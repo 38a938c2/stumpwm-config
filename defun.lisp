@@ -311,6 +311,7 @@
 (defcommand reload-defhooks () ()
 	    "Only load definitions of hooks from rc"
 	    (load-rcpart "defhook")
+	    (load-rcpart "defhook-runtime")
 	    (load-rcpart "sethook")
 	    (load-rcpart "defreports"))
 

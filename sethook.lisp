@@ -1,3 +1,5 @@
+(in-package :stumpwm)
+
 (setf *urgent-window-hook* '())
 (add-hook *urgent-window-hook* 'urgent-window-match-tags)
 

@@ -5,60 +5,29 @@
   )
 (in-package :stumpwm)
 
-(defun getenv (var-name) 
-  (#+clisp ext:getenv
-   #+sbcl  sb-posix:getenv
-   #+ccl  ccl:getenv
-   #+ecl  ext:getenv
-   var-name
-   ))
-
-(defun setenv (var value)
-  #+sbcl (sb-posix:setenv var value 1)
-  )
-
-(defparameter *HOME* (getenv "HOME"))
-(defun load-rcpart-old (name)
-  (load (concatenate 'string *HOME* "/src/rc/stumpwm/" name ".lisp")))
+(defparameter *here*
+  (cl-ppcre:regex-replace 
+    "/[^/]*$" (namestring (truename 
+                            (or
+                              *compile-file-truename*
+                              *load-truename*)))
+    ""))
 (defun load-rcpart (name)
-  (load (concatenate 'string *HOME* "/src/lsp/stumpwm-config/" name ".lisp")))
-; https://github.com/7c6f434c/lang-os
-(defun load-rcpart-langos (name)
-  (load (concatenate 'string *HOME* "/src/nix/lang-os/stumpwm/" name ".lisp")))
+  (load (concatenate 'string *here* "/" name ".lisp")))
 
-(run-shell-command "echo -n ' ' \| xsel -i")
+(defvar *defs-preloaded* nil)
 
-(load-rcpart-old "defpass")
+(load-rcpart "setup")
+(if *defs-preloaded*
+  (setf *defs-preloaded* nil)
+  (progn
+    (load-rcpart "all-defs")))
 
-(defun stumpwm::string-to-utf8 (string)
-  (sb-ext:string-to-octets string :external-format :utf-8))
-
-(set-module-dir "/home/repos/stumpwm-contrib/")
-(load-module "windowtags")
-(load-module "ttf-fonts")
-(use-package :windowtags)
-(import 'windowtags::select-by-tags)
-
-(load-rcpart "deftags")
-
-(load-rcpart "wse")
-(load-rcpart "frame-tags")
-(load-rcpart "wse-frame-tags")
-(load-rcpart "wse-window-tags")
-(load-rcpart "frame-tagged-group")
- 
-(load-rcpart "defoverride")
-
-(load-rcpart "defparam")
-(load-rcpart "defkey")
-(load-rcpart "defvar")
-(load-rcpart "defun")
 (load-rcpart "setvar")
+(load-rcpart "defkey")
 
 (gnewbg ".tag-store")
 (gselect "Default")
-
-(run-shell-command "echo -n ' ' | xsel -i")
 
 (defun handle-rp-commands (&rest arguments)
   arguments
@@ -67,14 +36,11 @@
   arguments
   nil)
 
-(load-rcpart-langos "wse-props")
-(load-rcpart-langos "stumpwm-socket")
-(load-rcpart-langos "props-to-tags")
-
-(load-rcpart "defhook")
+(load-rcpart "defhook-runtime")
 (load-rcpart "sethook")
 (load-rcpart "defreports")
 
+(run-shell-command "echo -n ' ' | xsel -i")
 (start-stumpwm-socket)
 
 ; vim:filetype=lisp

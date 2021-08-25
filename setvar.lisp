@@ -2,14 +2,13 @@
 
 (setf *default-package* :stumpwm)
 (setf *package* (find-package :stumpwm))
-(ignore-errors (uiop:run-program (list "sh" "-c" "stumpish eval '(in-package :stumpwm)' &")))
 
 (setf *debug-level* 0)
 (sb-ext:disable-debugger)
 
 (defvar *fonts-cached* nil)
 (unless *fonts-cached*
-  (setf xft:*font-dirs* (list "/run/current-system/sw/share/fonts/truetype/"))
+  (setf xft:*font-dirs* (list "/var/current-system/sw/share/fonts-sliced/DejaVuSansMono/"))
   (setf xft::+font-cache-filename+ (format nil "/tmp/~a-font-cache.clx-truetype" (uiop:getenv "USER")))
   (xft:cache-fonts)
   (setf *fonts-cached* t)
@@ -42,3 +41,4 @@
 (setenv "SHELL" "/run/current-system/sw/bin/zsh")
 (setenv "SBCL_HOME" "")
 (setenv "NIX_LISP_EARLY_OPTIONS" "")
+(uiop:setup-temporary-directory)
