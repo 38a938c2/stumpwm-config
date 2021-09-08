@@ -35,6 +35,7 @@
 (defun handle-stumpwm-commands (&rest arguments)
   arguments
   nil)
+(setf (getenv "LISP_SHELL_EARLY_OPTIONS") "")
 
 (load-rcpart "defhook-runtime")
 (load-rcpart "sethook")
