@@ -11,6 +11,7 @@
 
 (setf *new-window-hook* '())
 (add-hook *new-window-hook* 'default-tags-hook)
+(add-hook *new-window-hook* 'fullscreen-hook)
 (add-hook *new-window-hook* 'default-layout-hook)
 
 (setf *split-frame-hook* '())

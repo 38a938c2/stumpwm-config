@@ -560,6 +560,12 @@
 	    )
 	  (list "editor" "textadept")
 	  )
+        (if
+          (and
+            (equalp (window-class x) "rofi")
+            (equalp (window-res x) "rofi")
+            )
+          (list "rofi" "mode/fullscreen"))
 	))))
 
 (defun 

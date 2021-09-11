@@ -98,6 +98,10 @@
 (defun default-tags-hook (&rest args)
   (ignore-errors (default-tags)))
 
+(defun fullscreen-hook (new)
+  (when (find "mode/fullscreen" (deftags new) :test 'equalp)
+    (setf (window-fullscreen new) t)))
+
 (defun activate-strictly-urgent (&rest args)
   "Choose a window that should always be active but lost focus"
   (or
