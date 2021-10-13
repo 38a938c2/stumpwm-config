@@ -304,3 +304,5 @@
 
 (define-key *top-map* (kbd "C-:") "exec xdotool sleep 0.3 click 1")
 (define-key *top-map* (kbd "C-M-:") "exec yes 'click -d 1 1 sleep 0.001' | head -n 300 | xargs xdotool sleep 0.3")
+
+(define-key *root-map* (kbd "M--") "exec urxvt -e choose-screen-session -")
