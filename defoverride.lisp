@@ -17,3 +17,6 @@
       (run-hook-with-args *raise-request-hook* window)
       (unless *raise-request-deny*
         (funcall *maybe-raise-window-function* window)))))
+
+;; This functionality is used once, and I do not want it anyway
+(defun populate-frames (group))

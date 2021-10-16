@@ -1329,3 +1329,17 @@
 
 (defcommand start-stumpwm-socket () ()
             (listen-on-socket (format nil "~a/.stumpwm-socket" *HOME*)))
+
+(defcommand push-all-windows () ()
+            (act-on-matching-windows
+              (w :group)
+              (not (tagged-p w "never-push"))
+              (push-w w)))
+
+(defcommand push-all-head-windows (&optional (head (current-head))) ()
+            (act-on-matching-windows
+              (w :group)
+              (and
+                (not (tagged-p w "never-push"))
+                (equal (window-head w) head))
+              (push-w w)))

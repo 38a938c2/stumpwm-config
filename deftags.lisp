@@ -545,14 +545,14 @@
 	  )
 	(if
 	  (equal (window-title x) "XWatchSystem")
-	  (list "xwatchsystem" "999"))
+	  (list "xwatchsystem" "999" "never-push"))
 	(if
 	  (equalp (window-class x) "trayer")
 	  (list "trayer" "tray" "998")
 	  )
 	(if
 	  (equal (window-title x) "Breaking News")
-	  (list "breaking-news" "997"))
+	  (list "breaking-news" "997" "never-push"))
 	(if
 	  (or
 	    (equalp (window-class x) "textadeptjit")
