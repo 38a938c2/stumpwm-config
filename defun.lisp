@@ -1343,3 +1343,8 @@
                 (not (tagged-p w "never-push"))
                 (equal (window-head w) head))
               (push-w w)))
+
+(defcommand ratcenter-unless-window () ()
+            (unless
+              (current-window)
+              (ratcenter)))
