@@ -1348,3 +1348,11 @@
             (unless
               (current-window)
               (ratcenter)))
+
+(defcommand hide-redisplay (&optional (window (current-window)) focus) ()
+            (hide-window window)
+            (frame-raise-window 
+              (window-group window)
+              (window-frame window)
+              window
+              focus))
