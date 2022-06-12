@@ -541,7 +541,11 @@
 	  )
 	(if
 	  (equal (window-class x) "Gvim")
-	  (list "editor" "gvim" "vim" "xkbgr/0")
+	  (append
+            (list "editor" "gvim" "vim")
+            (unless
+              (tag-re-p x "^XKBGR/")
+              (list "xkbgr/0")))
 	  )
 	(if
 	  (equal (window-title x) "XWatchSystem")
