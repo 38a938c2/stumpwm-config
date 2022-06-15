@@ -268,7 +268,7 @@
 
 ;(define-key *top-map* (kbd "s-f") "firefox-form-fill")
 
-(define-key *root-map* (kbd "M-i") "exec xcalib -a -i")
+(define-key *root-map* (kbd "M-i") "exec for o in $(seq 0 10); do xcalib -a -i -o $o & done")
 
 ;(define-key *top-map* (kbd "s-c") "exec echo -e 'ButtonPress 1\\n' | xmacroplay $DISPLAY")
 
