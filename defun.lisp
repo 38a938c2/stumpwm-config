@@ -1351,8 +1351,17 @@
 
 (defcommand hide-redisplay (&optional (window (current-window)) focus) ()
             (hide-window window)
+            (fclear)
             (frame-raise-window 
               (window-group window)
               (window-frame window)
               window
               focus))
+
+(defun sort-windows (&key (range :frame) (offset 10000) (key 'window-title) (test 'string<))
+  (loop for k upfrom (1+ offset)
+        for w in (sort 
+                   (act-on-matching-windows (x range) t x) 
+                   test :key key)
+        do
+        (setf (window-number w) k)))
