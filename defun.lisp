@@ -1358,7 +1358,7 @@
               window
               focus))
 
-(defun sort-windows (&key (range :frame) (offset 10000) (key 'window-title) (test 'string<))
+(defun sort-local-windows (&key (range :frame) (offset 10000) (key 'window-title) (test 'string<))
   (loop for k upfrom (1+ offset)
         for w in (sort 
                    (act-on-matching-windows (x range) t x) 
