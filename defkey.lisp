@@ -138,6 +138,7 @@
 
 (define-key *root-map* (kbd "/") "exec choose-window &")
 (define-key *root-map* (kbd "M-/") "exec choose-window-and-go")
+(define-key *root-map* (kbd "C-/") "exec urxvt -e env NO_DISPLAY=1 in-titled-term choose-window choose-window")
 (define-key *root-map* (kbd ".") "all-tags-grouped")
 (define-key *root-map* (kbd "C-.") "scrollable-window-tag-list")
 
