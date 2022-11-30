@@ -1365,3 +1365,23 @@
                    test :key key)
         do
         (setf (window-number w) k)))
+
+(defcommand poke-all-windows (&key (range :screen)) ()
+  (let* ((g (current-group))
+         (f (tile-group-current-frame g)))
+    (dead-windows-cleanup)
+    (withdraw-dead-windows)
+    (act-on-matching-windows
+      (w range)
+      t
+      (if (equal (window-group w) g)
+        (progn
+          (ignore-errors (frame-raise-window g (window-frame w) w t))
+          (ignore-errors (redisplay)))
+        (progn
+          (focus-frame g f)
+          (ignore-errors (pull-w w))
+          (ignore-errors (redisplay))
+          (ignore-errors (push-w w)))
+        ))
+    (focus-frame g f)))
