@@ -1366,7 +1366,7 @@
         do
         (setf (window-number w) k)))
 
-(defcommand poke-all-windows (&key (range :screen)) ()
+(defcommand poke-all-windows (&key (range :screen) (delay 0.2)) ()
   (let* ((g (current-group))
          (f (tile-group-current-frame g)))
     (dead-windows-cleanup)
@@ -1382,6 +1382,8 @@
           (focus-frame g f)
           (ignore-errors (pull-w w))
           (ignore-errors (redisplay))
+          (sleep delay)
           (ignore-errors (push-w w)))
         ))
-    (focus-frame g f)))
+    (focus-frame g f)
+    (message "Poking done")))
