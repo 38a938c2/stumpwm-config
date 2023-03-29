@@ -1,6 +1,6 @@
 (in-package :stumpwm)
 
-(defvar *local-module-dir*  "/home/repos/stumpwm-contrib/")
+(defparameter *local-module-dir*  "/home/repos/stumpwm-contrib/")
 (set-module-dir *local-module-dir*)
 (load-module "windowtags")
 (load-module "ttf-fonts")
