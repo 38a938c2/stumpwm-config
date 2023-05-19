@@ -18,6 +18,7 @@
 (defvar *defs-preloaded* nil)
 
 (load-rcpart "setup")
+
 (if *defs-preloaded*
   (setf *defs-preloaded* nil)
   (progn

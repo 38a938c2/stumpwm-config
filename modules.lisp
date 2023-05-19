@@ -1,15 +1,13 @@
 (in-package :stumpwm)
 
-(loop for x in `(:clx-truetype :xkeyboard :xembed)
+(loop for x in `(
+		 :clx-truetype 
+		 :xkeyboard 
+		 :xembed
+		 )
       do (require x))
 
-(defparameter *local-module-dir*  "/home/repos/stumpwm-contrib/")
-(set-module-dir *local-module-dir*)
-(load-module "windowtags")
-(load-module "ttf-fonts")
+(load-rcpart "window-tags")
 (use-package :windowtags)
-(import 'windowtags::select-by-tags)
 
-
-(loop for x in `(:clx-truetype :xkeyboard :xembed :windowtags :ttf-fonts)
-      do (require x))
+(load-rcpart "ttf-fonts")

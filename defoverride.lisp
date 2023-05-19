@@ -20,3 +20,5 @@
 
 ;; This functionality is used once, and I do not want it anyway
 (defun populate-frames (group))
+;; This is used more, and I still do not want it
+(defun choose-new-frame-window (frame group))
