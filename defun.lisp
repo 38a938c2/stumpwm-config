@@ -1387,3 +1387,23 @@
         ))
     (focus-frame g f)
     (message "Poking done")))
+
+(defun do-in-frame (f thunk)
+  (let*
+    (
+     (g (current-group))
+     (of (current-frame))
+     (f (if (numberp f) (frame-by-number g f) f))
+     )
+    (focus-frame g f)
+    (funcall thunk of)
+    (focus-frame g of)
+    ))
+
+(defmacro with-focused-frame ((f &optional (x (gensym))) &body body)
+  `(do-in-frame
+     ,f
+     (lambda (,x) ,@body)))
+
+(defun xdotool-keypresses (&rest keys)
+  (uiop:run-program `("xdotool" ,@(loop for k in keys collect "key" collect k))))
