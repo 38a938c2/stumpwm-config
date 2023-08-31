@@ -42,7 +42,4 @@
 (load-rcpart "sethook")
 (load-rcpart "defreports")
 
-(run-shell-command "echo -n ' ' | xsel -i")
-(start-stumpwm-socket)
-
 ; vim:filetype=lisp

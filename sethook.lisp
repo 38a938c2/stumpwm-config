@@ -25,6 +25,8 @@
 (add-hook *start-hook* 'reference-frame)
 (add-hook *start-hook* 'do-status-split)
 (add-hook *start-hook* 'modeline-killer-start-hook)
+(add-hook *start-hook* 'start-stumpwm-socket-start-hook)
+(add-hook *start-hook* 'minor-x-config-tools-start-hook)
 
 (add-hook *raise-request-hook* 'raise-request-match-tags)
 

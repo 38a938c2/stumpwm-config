@@ -168,3 +168,10 @@
             (list w (window-title w) (xwin-name (window-xwin w))))
       (setf (window-title w) (xwin-name (window-xwin w))))
     (setf *current-window-rename* nil)))
+
+(defun start-stumpwm-socket-start-hook ()
+  (ignore-errors (start-stumpwm-socket)))
+
+(defun minor-x-config-tools-start-hook ()
+  (uiop:launch-program "echo -n ' ' | xsel -i")
+  (uiop:launch-program `("xsetroot" "-solid" "#99bb66")))
