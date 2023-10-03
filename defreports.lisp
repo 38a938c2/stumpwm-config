@@ -53,3 +53,10 @@
                (not (eq w (current-window))))
       (cl-ppcre:regex-replace " - Mozilla Firefox" (window-title w) "")))
   *window-reporting*)
+(push
+  (lambda (w)
+    (when (and (window-title w)
+               (title-re-p w "^[·∘•] Discord [|] .* [-–—] Mozilla Firefox")
+               (not (eq w (current-window))))
+      "Discord [*]"))
+  *window-reporting*)
