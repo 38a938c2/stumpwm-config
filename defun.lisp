@@ -1235,13 +1235,13 @@
 (defun window-home (&optional (window (current-window)))
   (first
     (directory
-      (format nil "/tmp/subuser-homes-~a/~a-????????/"
+      (format nil "/tmp/subhomes-~a/*-~a-????????/"
               (uiop:getenv "USER") (window-hostname window)))))
 
 (defun window-tmp (&optional (window (current-window)))
   (first
     (directory
-      (format nil "/tmp/subuser-tmps-~a/~a-????????/"
+      (format nil "/tmp/subtmps-~a/*-~a-????????/"
               (uiop:getenv "USER") (window-hostname window)))))
 
 (defcommand
@@ -1394,10 +1394,14 @@
      (g (current-group))
      (of (current-frame))
      (f (if (numberp f) (frame-by-number g f) f))
+     (res
+       (progn
+         (focus-frame g f)
+         (funcall thunk of)
+         ))
      )
-    (focus-frame g f)
-    (funcall thunk of)
     (focus-frame g of)
+    res
     ))
 
 (defmacro with-focused-frame ((f &optional (x (gensym))) &body body)
@@ -1407,3 +1411,11 @@
 
 (defun xdotool-keypresses (&rest keys)
   (uiop:run-program `("xdotool" ,@(loop for k in keys collect "key" collect k))))
+
+(defun frame-window-hostname (f)
+  (window-hostname
+    (frame-window
+      (cond
+        ((numberp f)
+         (frame-by-number (current-group) f))
+        (t f)))))
