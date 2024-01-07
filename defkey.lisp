@@ -25,11 +25,13 @@
 
 (define-key *root-map* (kbd "M-c") "exec urxvt")
 (define-key *root-map* (kbd "C-c") "exec mlterm")
+(define-key *root-map* (kbd "C-M-c") "exec konsole-launcher")
 (define-key *root-map* (kbd "C-h") "exec :hour-sleep")
 (define-key *root-map* (kbd "C-y") "exec :away")
 (define-key *root-map* (kbd "P") "exec :asleep")
 
 (define-key *root-map* (kbd "C-v") "exec gvim")
+(define-key *root-map* (kbd "C-M-v") "exec konsole-launcher -e vim")
 
 ;(define-key *root-map* (kbd "u") "exec UZBL_LAUNCH_IN_SCREEN=1 uzbl")
 ;(define-key *root-map* (kbd "M-u") "exec UZBL_LAUNCH_IN_SCREEN=1 UZBL_EXECUTABLE=~/.nix-personal/personal-result/uzbl_gtk2/bin/uzbl-core uzbl")
@@ -39,14 +41,14 @@
 (define-key *root-map* (kbd "M-w") "exec ~/.nix-personal/personal-result/webkit/bin/webkit-program-GtkLauncher")
 (define-key *root-map* (kbd "M-W") "exec ~/.nix-personal/personal-result/webkit_gtk2/bin/webkit-program-GtkLauncher")
 
-(define-key *root-map* (kbd "C-f") "exec urxvt -lsp 9 -fn 'xft:DejaVu Sans Mono:pixelsize=16:antialias=true:weight=' -e zsh -c 'xtitle web-streams; screen -D -RR -S view-web-streams -U view-web-streams'")
-(define-key *root-map* (kbd "C-F") "exec ( ls ~/queries/web-streams/::all-fresh-non-deferred/ | grep '[.]txt$' && urxvt -lsp 9 -fn 'xft:DejaVu Sans Mono:pixelsize=16:antialias=true:weight=' -e zsh -c 'xtitle web-streams; screen -D -RR -S view-web-streams -U view-web-stream-texts-non-deferred' ) || ( ls ~/queries/web-streams/::all-fresh-non-deferred/fresh/ | grep -v '[.]txt$' | grep . && gqview ~/queries/web-streams/::all-fresh-non-deferred/ )")
-(define-key *root-map* (kbd "C-M") "exec urxvt -e zsh -c 'launch-view-emails'")
-(define-key *root-map* (kbd "C-M-M") "exec urxvt -e zsh -c 'launch-view-emails edit-new-email'")
-(define-key *root-map* (kbd "C-M-m") "exec urxvt -e zsh -c 'launch-view-emails view-mail-summaries'")
+(define-key *root-map* (kbd "C-f") "exec konsole-launcher -e zsh -c 'xtitle web-streams; screen -D -RR -S view-web-streams -U view-web-streams'")
+(define-key *root-map* (kbd "C-F") "exec ( ls ~/queries/web-streams/::all-fresh-non-deferred/ | grep '[.]txt$' && konsole-launcher -e zsh -c 'xtitle web-streams; screen -D -RR -S view-web-streams -U view-web-stream-texts-non-deferred' ) || ( ls ~/queries/web-streams/::all-fresh-non-deferred/fresh/ | grep -v '[.]txt$' | grep . && gqview ~/queries/web-streams/::all-fresh-non-deferred/ )")
+(define-key *root-map* (kbd "C-M") "exec konsole-launcher -e zsh -c 'launch-view-emails'")
+(define-key *root-map* (kbd "C-M-M") "exec konsole-launcher -e zsh -c 'launch-view-emails edit-new-email'")
+(define-key *root-map* (kbd "C-M-m") "exec konsole-launcher -e zsh -c 'launch-view-emails view-mail-summaries'")
 ;(define-key *root-map* (kbd "C-F") "exec uzbl $(find-related-uri)") 
 
-(define-key *root-map* (kbd "C-B") "exec urxvt -e zsh -c 'xtitle breaking-news; screen -D -RR -S view-breaking-news -U view-breaking-news'")
+(define-key *root-map* (kbd "C-B") "exec konsole-launcher -e zsh -c 'xtitle breaking-news; screen -D -RR -S view-breaking-news -U view-breaking-news'")
 (define-key *root-map* (kbd "C-M-B") "exec cleanup-notifications")
 
 (define-key *root-map* (kbd "C-M-f") "exec firefox")
@@ -139,7 +141,7 @@
 
 (define-key *root-map* (kbd "/") "exec choose-window &")
 (define-key *root-map* (kbd "M-/") "exec choose-window-and-go")
-(define-key *root-map* (kbd "C-/") "exec urxvt -e env NO_DISPLAY=1 in-titled-term choose-window choose-window")
+(define-key *root-map* (kbd "C-/") "exec konsole-launcher -e env NO_DISPLAY=1 in-titled-term choose-window choose-window")
 (define-key *root-map* (kbd ".") "all-tags-grouped")
 (define-key *root-map* (kbd "C-.") "scrollable-window-tag-list")
 
@@ -180,11 +182,11 @@
 
 (define-key *root-map* (kbd "M-b") "ratcenter")
 
-(define-key *root-map* (kbd "C-I") "exec urxvt -e sh -c 'xtitle ii-irc-summary; ii-all-new 10 | less '")
-(define-key *root-map* (kbd "C-i") "exec urxvt -e ii-interactive-screen")
-(define-key *root-map* (kbd "C-X") "exec urxvt -e sh -c 'xtitle mcabber-xmpp-summary; mcabber-all-new 10 | less '")
-(define-key *root-map* (kbd "C-x") "exec urxvt -e mcabber-interactive-screen")
-(define-key *root-map* (kbd "M-x") "exec urxvt -e mcabber-base-screen")
+(define-key *root-map* (kbd "C-I") "exec konsole-launcher -e sh -c 'xtitle ii-irc-summary; ii-all-new 10 | less '")
+(define-key *root-map* (kbd "C-i") "exec konsole-launcher -e ii-interactive-screen")
+(define-key *root-map* (kbd "C-X") "exec konsole-launcher -e sh -c 'xtitle mcabber-xmpp-summary; mcabber-all-new 10 | less '")
+(define-key *root-map* (kbd "C-x") "exec konsole-launcher -e mcabber-interactive-screen")
+(define-key *root-map* (kbd "M-x") "exec konsole-launcher -e mcabber-base-screen")
 
 (define-key *root-map* (kbd "C-!") "exec run-popular-command")
 (define-key *root-map* (kbd "M-!") "exec run-popular-command-subuser")
@@ -266,7 +268,7 @@
 (define-key *root-map* (kbd "C-S-F4") "exec marionette-save-and-open-chosen")
 (define-key *root-map* (kbd "C-S-M-F4") "exec download-link \"$(xclip -o -sele primary)\" /dev/null open")
 
-(define-key *root-map* (kbd "C-F1") "exec urxvt -e choose-screen-session")
+(define-key *root-map* (kbd "C-F1") "exec konsole-launcher -e choose-screen-session")
 
 ;(define-key *top-map* (kbd "s-f") "firefox-form-fill")
 
@@ -309,4 +311,4 @@
 (define-key *top-map* (kbd "C-:") "exec xdotool sleep 0.3 click 1")
 (define-key *top-map* (kbd "C-M-:") "exec yes 'click -d 1 1 sleep 0.001' | head -n 300 | xargs xdotool sleep 0.3")
 
-(define-key *root-map* (kbd "M--") "exec urxvt -e choose-screen-session -")
+(define-key *root-map* (kbd "M--") "exec konsole-launcher -e choose-screen-session -")
