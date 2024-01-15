@@ -194,6 +194,8 @@
           (list "im" "matrix" "weechat"))
         (if (equal "Signal" (window-class x))
           (list "im" "signal" "ignore-raise"))
+        (if (equal "konsole" (window-res x))
+          (list "ignore-raise"))
 	(if (and 
 	      (or
 		(equal (window-class x) "Thunderbird-bin")
@@ -272,11 +274,13 @@
 	      (equal (window-res x) "urxvt")
 	      (equal (window-res x) "rxvt")
               (equal (window-res x) "mlterm")
+              (equal (window-res x) "konsole")
 	      )
 	  (list "shell" "term"))
 	(if (or
 	      (equal (window-title x) "su shell")
 	      (equal (window-title x) "su screen")
+	      (equal (window-title x) "su screen — Konsole")
 	      )
 	  (list 
 	    ;"9" 
@@ -400,6 +404,7 @@
 		(equal (window-res x) "urxvt")
 		(equal (window-res x) "rxvt")
 		(equal (window-res x) "mlterm")
+		(equal (window-res x) "konsole")
 		)
 	      (> (length (window-title x)) 12)
 	      (or
@@ -414,11 +419,13 @@
 		(equal (window-res x) "urxvt")
 		(equal (window-res x) "rxvt")
 		(equal (window-res x) "mlterm")
+		(equal (window-res x) "konsole")
 		(equal (window-class x) "Gvim")
 		)
 	      (or
 		(equal (window-title x) "web-streams")
 		(equal (window-role x) "web-streams")
+		(equal (window-role x) "web-streams — Konsole")
 		)
 	      )
 	  (list "web-streams" "viewers" "view" "xkbgr/0"))
@@ -433,6 +440,7 @@
 		)
 	      (or
 		(equal (window-title x) "emails")
+		(equal (window-title x) "emails — Konsole")
 		)
 	      )
 	  (list "mail" "email"))
