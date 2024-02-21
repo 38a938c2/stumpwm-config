@@ -722,13 +722,13 @@
 
 (defcommand
   local-shell-group () ()
-  "Go to local shell group and launch a default screen session if none are running"
+  "Go to local shell group and launch a default tmux session if none are running"
   (ftg-set-tags "SH")
   (unless
-    (pull-titled-window (format nil "screen session: main-screen-~a"
+    (pull-titled-window (format nil "tmux session: main-tmux-~a"
                                 (uiop:getenv "USER")))
     (run-shell-command
-      (format nil "urxvt -e choose-screen-session main-screen-~a"
+      (format nil "konsole-launcher -e choose-tmux-session main-tmux-~a"
               (uiop:getenv "USER")))
     )
   )

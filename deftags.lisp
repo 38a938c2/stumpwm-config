@@ -50,6 +50,7 @@
 	    "base" "sh" "xkbgr/!") nil)
 	(if (or
 	      (starts-with-subseq "screen session: " (window-title x))
+	      (starts-with-subseq "tmux session: " (window-title x))
 	      )
 	  (list 
 	    ;"0" 
@@ -151,7 +152,10 @@
 	    (t nil)
 	    ) nil)
 	(if
-	  (starts-with-subseq  "IRC screen: " (window-title x))
+          (or
+            (starts-with-subseq  "IRC screen: " (window-title x))
+            (starts-with-subseq  "IRC tmux: " (window-title x))
+            )
 	  (list "im" "ii-interactive" "irc")
 	  )
 	(if
@@ -159,16 +163,25 @@
             (starts-with-subseq "IRC screen: irc/"               (window-title x))
             (starts-with-subseq "IRC screen: irc.freenode.net/"  (window-title x))
             (starts-with-subseq "IRC screen: irc.oftc.net/"      (window-title x))
+            (starts-with-subseq "IRC tmux: irc/"               (window-title x))
+            (starts-with-subseq "IRC tmux: irc.freenode.net/"  (window-title x))
+            (starts-with-subseq "IRC tmux: irc.oftc.net/"      (window-title x))
             )
 	  (list "xkbgr/0")
 	  )
 	(if
-	  (starts-with-subseq  "XMPP screen: " (window-title x))
+          (or
+            (starts-with-subseq  "XMPP screen: " (window-title x))
+            (starts-with-subseq  "XMPP tmux: " (window-title x))
+            )
 	  (list "im" "mcabber-interactive" "xmpp")
 	  )
 	(if
           (and
-            (starts-with-subseq  "XMPP screen: raskin@dev.mccme.ru/out/" (window-title x))
+            (or
+              (starts-with-subseq  "XMPP screen: raskin@dev.mccme.ru/out/" (window-title x))
+              (starts-with-subseq  "XMPP tmux: raskin@dev.mccme.ru/out/" (window-title x))
+              )
             (ends-with-subseq  "@dev.mccme.ru" (window-title x))
             )
           (list "im" "mcabber-interactive" "xkbgr/1")
@@ -281,6 +294,7 @@
 	      (equal (window-title x) "su shell")
 	      (equal (window-title x) "su screen")
 	      (equal (window-title x) "su screen — Konsole")
+	      (equal (window-title x) "su tmux — Konsole")
 	      )
 	  (list 
 	    ;"9" 
@@ -361,6 +375,7 @@
 	(if
 	  (or
 	    (equal (window-title x) "Media screen")
+	    (equal (window-title x) "Media tmux")
 	    )
 	  (list "media" "xkbgr/0")
 	  )
