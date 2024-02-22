@@ -41,8 +41,8 @@
 (define-key *root-map* (kbd "M-w") "exec ~/.nix-personal/personal-result/webkit/bin/webkit-program-GtkLauncher")
 (define-key *root-map* (kbd "M-W") "exec ~/.nix-personal/personal-result/webkit_gtk2/bin/webkit-program-GtkLauncher")
 
-(define-key *root-map* (kbd "C-f") "exec konsole-launcher -e zsh -c 'choose-tmux-session web-streams ~ + view-web-streams'")
-(define-key *root-map* (kbd "C-F") "exec ( ls ~/queries/web-streams/::all-fresh-non-deferred/ | grep '[.]txt$' && konsole-launcher -e zsh -c 'choose-tmux-session web-streams ~ + view-web-stream-texts-non-deferred' ) || ( ls ~/queries/web-streams/::all-fresh-non-deferred/fresh/ | grep -v '[.]txt$' | grep . && gqview ~/queries/web-streams/::all-fresh-non-deferred/ )")
+(define-key *root-map* (kbd "C-f") "exec konsole-launcher -e zsh -c 'choose-tmux-session web-streams ~ view-web-streams'")
+(define-key *root-map* (kbd "C-F") "exec ( ls ~/queries/web-streams/::all-fresh-non-deferred/ | grep '[.]txt$' && konsole-launcher -e zsh -c 'choose-tmux-session web-streams ~ view-web-stream-texts-non-deferred' ) || ( ls ~/queries/web-streams/::all-fresh-non-deferred/fresh/ | grep -v '[.]txt$' | grep . && gqview ~/queries/web-streams/::all-fresh-non-deferred/ )")
 (define-key *root-map* (kbd "C-M") "exec konsole-launcher -e zsh -c 'launch-view-emails'")
 (define-key *root-map* (kbd "C-M-M") "exec konsole-launcher -e zsh -c 'launch-view-emails edit-new-email'")
 (define-key *root-map* (kbd "C-M-m") "exec konsole-launcher -e zsh -c 'launch-view-emails view-mail-summaries'")
