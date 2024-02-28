@@ -33,11 +33,6 @@
 (define-key *root-map* (kbd "C-v") "exec gvim")
 (define-key *root-map* (kbd "C-M-v") "exec konsole-launcher -e vim")
 
-;(define-key *root-map* (kbd "u") "exec UZBL_LAUNCH_IN_SCREEN=1 uzbl")
-;(define-key *root-map* (kbd "M-u") "exec UZBL_LAUNCH_IN_SCREEN=1 UZBL_EXECUTABLE=~/.nix-personal/personal-result/uzbl_gtk2/bin/uzbl-core uzbl")
-;(define-key *root-map* (kbd "U") "exec UZBL_LAUNCH_IN_SCREEN=1 uzbl $(xclip -o)")
-;(define-key *root-map* (kbd "M-U") "exec UZBL_LAUNCH_IN_SCREEN=1 UZBL_EXECUTABLE=~/.nix-personal/personal-result/uzbl_gtk2/bin/uzbl-core uzbl $(xclip -o)")
-
 (define-key *root-map* (kbd "M-w") "exec ~/.nix-personal/personal-result/webkit/bin/webkit-program-GtkLauncher")
 (define-key *root-map* (kbd "M-W") "exec ~/.nix-personal/personal-result/webkit_gtk2/bin/webkit-program-GtkLauncher")
 
@@ -268,7 +263,7 @@
 (define-key *root-map* (kbd "C-S-F4") "exec marionette-save-and-open-chosen")
 (define-key *root-map* (kbd "C-S-M-F4") "exec download-link \"$(xclip -o -sele primary)\" /dev/null open")
 
-(define-key *root-map* (kbd "C-F1") "exec konsole-launcher -e choose-screen-session")
+(define-key *root-map* (kbd "C-F1") "exec konsole-launcher -e choose-tmux-session")
 
 ;(define-key *top-map* (kbd "s-f") "firefox-form-fill")
 
@@ -311,4 +306,4 @@
 (define-key *top-map* (kbd "C-:") "exec xdotool sleep 0.3 click 1")
 (define-key *top-map* (kbd "C-M-:") "exec yes 'click -d 1 1 sleep 0.001' | head -n 300 | xargs xdotool sleep 0.3")
 
-(define-key *root-map* (kbd "M--") "exec konsole-launcher -e choose-screen-session -")
+(define-key *root-map* (kbd "M--") "exec konsole-launcher -e choose-tmux-session -")
