@@ -42,3 +42,6 @@
 (setenv "SBCL_HOME" "")
 (setenv "NIX_LISP_EARLY_OPTIONS" "")
 (uiop:setup-temporary-directory)
+
+(setenv "STY" "")
+(setenv "TMUX" "")
