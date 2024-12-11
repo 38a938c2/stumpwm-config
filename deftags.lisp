@@ -435,6 +435,19 @@
 		(equal (window-res x) "rxvt")
 		(equal (window-res x) "mlterm")
 		(equal (window-res x) "konsole")
+		)
+	      (or
+		(starts-with-subseq  "ssh session: my-vps-ssh " (window-title x))
+		) 
+	      )
+	  (list "my-vps-ssh"))
+	(if (and
+	      (or
+		(equal (window-res x) "xterm")
+		(equal (window-res x) "urxvt")
+		(equal (window-res x) "rxvt")
+		(equal (window-res x) "mlterm")
+		(equal (window-res x) "konsole")
 		(equal (window-class x) "Gvim")
 		)
 	      (or
