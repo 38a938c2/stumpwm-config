@@ -1396,11 +1396,15 @@
      (f (if (numberp f) (frame-by-number g f) f))
      (res
        (progn
-         (focus-frame g f)
+         (let*
+	   ((*timeout-frame-indicator-wait* 0))
+	   (focus-frame g f))
          (funcall thunk of)
          ))
      )
-    (focus-frame g of)
+    (let*
+      ((*timeout-frame-indicator-wait* 0))
+      (focus-frame g of))
     res
     ))
 
@@ -1410,7 +1414,9 @@
      (lambda (,x) ,@body)))
 
 (defun xdotool-keypresses (&rest keys)
-  (uiop:run-program `("xdotool" ,@(loop for k in keys collect "key" collect k))))
+  (sleep 0.05)
+  (uiop:run-program `("xdotool" ,@(loop for k in keys collect "key" collect k)))
+  (sleep 0.15))
 
 (defun frame-window-hostname (f)
   (window-hostname
