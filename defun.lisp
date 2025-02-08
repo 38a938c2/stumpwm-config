@@ -901,7 +901,7 @@
 	  )
 	(progn
 	  (run-shell-command
-	    (format nil "urxvt -e $SHELL -c '~a'" command))
+	    (format nil "konsole-launcher -e $SHELL -c '~a'" command))
 	  )
 	)
       )
