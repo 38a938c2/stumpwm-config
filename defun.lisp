@@ -447,16 +447,54 @@
                      (group-windows (current-group))))
   )
 
+(defcommand fraction-size (&key 
+                            (ratio 1/2)
+                            (x-ratio ratio) (y-ratio ratio)
+                            (window (current-window))
+                            (frame (ignore-errors (window-frame window)))
+                            (group (window-group window))
+                            x-frame-ratio y-frame-ratio
+                            (x-size (truncate 
+                                      (if x-frame-ratio
+                                        (* (frame-display-width group frame) x-frame-ratio)
+                                        (* (window-width window) x-ratio))))
+                            (y-size (truncate 
+                                      (if y-frame-ratio
+                                        (* (frame-display-height group frame) y-frame-ratio)
+                                        (* (window-height window) y-ratio))))
+                            dx dy right bottom
+                            (x (when (or dx right)
+                                 (+ (or dx 0) (frame-display-x group frame)
+                                    (if right (- (frame-display-width group frame) x-size) 0))))
+                            (y (when (or dy bottom)
+                                 (+ (or dy 0) (frame-display-y group frame)
+                                    (if bottom (- (frame-display-height group frame) y-size) 0)))))
+            ()
+            "Resize the window to a fraction of its size"
+            (set-window-geometry window 
+                                 :width x-size :height y-size :x 0 :y 0)
+            (xlib:with-state 
+              ((window-parent window))
+              (when x (setf (xlib:drawable-x (window-parent window)) x))
+              (when y (setf (xlib:drawable-y (window-parent window)) y))
+              (setf 
+                (xlib:drawable-width (window-parent window)) (window-width window)
+                (xlib:drawable-height (window-parent window)) (window-height window)))
+            (xlib:change-property (window-xwin window) :_NET_FRAME_EXTENTS
+                                  (list 0
+                                        (xlib:drawable-width (window-parent window))
+                                        0
+                                        (xlib:drawable-height (window-parent window)))
+                                  :cardinal 32)
+            (update-decoration window)
+            (update-configuration window)
+            (xlib:display-finish-output *display*))
+
 (defcommand force-redisplay () ()
-  "Like redisplay, only resizing to 1x1"
-  (let ((window (current-window)))
-       (set-window-geometry 
-        window 
-        :width (truncate (/ (window-width window) 2))
-        :height (truncate (/ (window-height window) 2)))
-       (xlib:display-finish-output *display*)
-       (sleep 0.1)
-       (redisplay)))
+  "Like redisplay, only resizing to half-size"
+  (fraction-size)
+  (sleep 0.1)
+  (redisplay))
 
 (defcommand show-im-status () ()
   (let*
