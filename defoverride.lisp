@@ -24,7 +24,7 @@
 (defun choose-new-frame-window (frame group))
 
 (defmethod group-move-request ((group tile-group) (window tile-window) x y (relative-to (eql :root)))
-  (when *honor-window-moves*
+  (when nil *honor-window-moves*
     (dformat 3 "Window requested new position ~D,~D relative to ~S~%" x y relative-to)
     (let* ((pos  (list x y))
            (frame (apply #'find-frame group pos)))
