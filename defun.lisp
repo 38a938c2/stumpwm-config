@@ -1463,3 +1463,18 @@
         ((numberp f)
          (frame-by-number (current-group) f))
         (t f)))))
+
+(defun ensure-window-visible (pred)
+  (let* ((f (current-frame))
+         (ws 
+           (act-on-matching-windows 
+             (x :screen)
+             (funcall pred x)
+             x))
+         (w (first ws)))
+    (when w
+      (unless (equal (window-group w) (current-group)) 
+        (pull-w w))
+      (really-raise-window w)
+      (focus-frame (current-group) f))))
+
