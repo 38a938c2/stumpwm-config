@@ -739,7 +739,7 @@
       :environment
       `(("DISPLAY" ,(screen-display-string (current-screen) nil))
         ("PATH" ,(getenv "PATH"))
-        ("LANG" "en_US.UTF-8")
+        ("LANG" "C.UTF-8")
         ("XDG_DATA_DIRS" ,(getenv "XDG_DATA_DIRS"))))))
 
 (defcommand 
