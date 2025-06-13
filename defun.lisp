@@ -613,6 +613,45 @@
     ))
 
 (defcommand 
+  place-wall-status-windows () ()
+  "Place the status windows on the wall-working split"
+  (default-tags)
+  (act-on-matching-windows
+    (w :screen)
+    (tagged-p w "BREAKING-NEWS-WALL")
+    (pull-w w)
+    (to-tagged-frame w "TG/WALL-BREAKING-NEWS"))
+  (focus-frame-by-tag "TG/WALL"))
+
+(defcommand 
+  split-wall () ()
+  "Split a projector output for wall-working"
+  (loop while (remove-split))
+  (only)
+  (let*
+    (
+     (g (current-group))
+     (f0 (tile-group-current-frame g))
+     (h0 (frame-display-height g f0))
+     )
+    (split-frame g :row (- h0 70))
+    (move-focus :down)
+    (setf (frame-tags (tile-group-current-frame g)) '("TG/WALL-BREAKING-NEWS"))
+    (move-focus :up)
+    (setf (frame-tags (tile-group-current-frame g)) '("TG/WALL"))
+    (uiop:launch-program (list "konsole-launcher" 
+                            "--profile" (format nil "~a/~a" 
+                                                (uiop:getenv "HOME") 
+                                                "src/rc/konsole.wall-breaking-news.profile")
+                            "-e"
+                            "choose-tmux-session" "breaking-news-wall" "~"
+                            "forever" "watchsystem-wall")))
+  (run-with-timer 1 nil 'place-wall-status-windows)
+  (run-with-timer 2 nil 'place-wall-status-windows)
+  (run-with-timer 3 nil 'place-wall-status-windows)
+  (run-with-timer 5 nil 'place-wall-status-windows))
+
+(defcommand 
   ratcenter () ()
   "Center the mouse pointer in current frame"
   (let*

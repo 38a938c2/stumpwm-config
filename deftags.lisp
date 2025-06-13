@@ -594,6 +594,9 @@
 	  (equal (window-title x) "Breaking News")
 	  (list "breaking-news" "997" "never-push"))
 	(if
+	  (equal (window-title x) "tmux session: breaking-news-wall — Konsole")
+	  (list "breaking-news-wall" "996" "never-push"))
+	(if
 	  (or
 	    (equalp (window-class x) "textadeptjit")
 	    (equalp (window-class x) "textadept")
