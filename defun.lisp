@@ -1475,7 +1475,10 @@
        (progn
          (let*
 	   ((*timeout-frame-indicator-wait* 0))
-	   (focus-frame g f))
+	   (if (listp f) 
+             (loop for m in f do
+                   (move-focus m))
+             (focus-frame g f)))
          (funcall thunk of)
          ))
      )
