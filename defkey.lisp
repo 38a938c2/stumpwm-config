@@ -21,6 +21,7 @@
 (define-key *root-map* (kbd "O") "other")
 (define-key *root-map* (kbd "L") "force-redisplay")
 (define-key *root-map* (kbd "C-L") "fraction-size")
+(define-key *root-map* (kbd "M-l") "tag-fraction-size")
 
 (define-key *root-map* (kbd "C-K") "withdraw-current-window")
 

@@ -299,6 +299,7 @@
                       (move-window-to-group x (current-group))
                       (fclear)
                       (really-raise-window x))
+                    (withdraw-window x)
 		    (destroy-window x))))
 	      (screen-windows (current-screen))))
 
@@ -495,6 +496,39 @@
   (fraction-size)
   (sleep 0.1)
   (redisplay))
+
+(defcommand 
+  tag-fraction-size (&key (window (current-window))
+                          (marker "SIZE")
+                          (tag (find-if 
+                                 (lambda (s) 
+                                   (cl-ppcre:scan 
+                                     (format nil "^~a/" marker)
+                                     s))
+                                 (window-tags window)))) ()
+  "Resize window to a tag-saved size"
+  (when tag
+    (let* ((content (subseq tag (1+ (length marker))))
+           (entries (cl-ppcre:split "@" content))
+           (args (loop for e in entries
+                       for p := (cl-ppcre:split ":" e)
+                       for k := (first p)
+                       for v := (second p)
+                       collect (intern (string-upcase k)
+                                       (find-package :keyword))
+                       collect (cond
+                                 ((cl-ppcre:scan "^[-+/0-9]+$" v)
+                                  (read-from-string v))
+                                 ((null v) nil)
+                                 ((equal v "") nil)
+                                 (t t)))))
+      (apply #'fraction-size :window window args))))
+
+(defcommand
+  tag-window-size (tag &key (window (current-window)))
+  ((:rest "Size tag: ") :rest)
+  (untag-window-regex "^SIZE/" :window window)
+  (tag-window (format nil "SIZE/~a" tag) window))
 
 (defcommand show-im-status () ()
   (let*
@@ -706,6 +740,14 @@
 	       (tag (string-split-by-spaces argtag))
 	       (tag (mapcar 'string-upcase tag)))
 	      (setf (window-tags win) (set-difference (window-tags win) tag :test 'equalp))))
+
+(defcommand 
+  untag-window-regex (tag-re &key (window (current-window)))
+  ((:rest "Tag regexp to remove: ") :rest)
+  (setf (window-tags window)
+        (remove-if
+          (lambda (s) (cl-ppcre:scan tag-re s))
+          (window-tags window))))
 
 (defcommand 
   vacuum-offline () ()
