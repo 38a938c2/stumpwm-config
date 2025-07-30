@@ -247,6 +247,7 @@
 	      (equal (window-class x) "Namoroka")
 	      (equal (window-class x) "Tumucumaque")
 	      (equal (window-class x) "Aurora")
+	      (equal (window-class x) "Librewolf")
 	      (and
 		(equal (window-role x) "browser")
 		(equal (window-res x) "Navigator")
