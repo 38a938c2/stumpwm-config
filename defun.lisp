@@ -348,7 +348,7 @@
 
 (defcommand scrollable-window-tag-list () ()
 	    "Show windows and their tags in a terminal"
-	    (run-shell-command "urxvt -e sh -c 'echo all-tags | TERM=rxvt stumpish | less'"))
+	    (run-shell-command "konsole-launcher -e sh -c 'stumpwm-eval \"(all-tags-grouped)\" | less'"))
 
 (defun resize-local-frame-to (group frame x y)
   (if x (progn
@@ -954,7 +954,9 @@
      )
     (let*
       ((*suppress-echo-timeout* t))
-      (message "~a" formatted-data)
+      (if *interactivep*
+        (message "~a" formatted-data)
+        formatted-data)
       )
     )
   )
@@ -1069,27 +1071,31 @@
 
 (defcommand
   all-tag-combos () ()
-  "List all tag names with adjacet tags"
-  (message
-    "~{~{~a ## ~{~a ~}~}~%~}"
-    (let*
-      (
-       (ht (make-hash-table :test 'equal))
-       (res nil)
-       )
-      (act-on-matching-windows 
-	(w :screen)
-	t 
-	(let*
-	  ((wt (window-tags w)))
-	  (loop for a in wt do
-		(loop for b in wt do
-		      (pushnew b (gethash a ht) :test 'equalp)))))
-      (maphash 
-	(lambda (k v)
-	  (push (list k (sort v #'string<)) res))
-	ht)
-      (sort res #'string< :key 'first))))
+  "List all tag names with adjacent tags"
+  (let*
+    ((formatted-data
+       (format
+         nil
+         "~{~{~a ## ~{~a ~}~}~%~}"
+         (let*
+           (
+            (ht (make-hash-table :test 'equal))
+            (res nil)
+            )
+           (act-on-matching-windows 
+             (w :screen)
+             t 
+             (let*
+               ((wt (window-tags w)))
+               (loop for a in wt do
+                     (loop for b in wt do
+                           (pushnew b (gethash a ht) :test 'equalp)))))
+           (maphash 
+             (lambda (k v)
+               (push (list k (sort v #'string<)) res))
+             ht)
+           (sort res #'string< :key 'first)))))
+    (if *interactivep* (message "~a" formatted-data) formatted-data)))
 
 (defcommand open-ssh-gvim () ()
 	    "Open a (possibly SSHFS) gvim"
@@ -1097,9 +1103,21 @@
  "sh -c \"open-ssh-gvim-chosen\""))
 
 (defcommand choose-tag-combo () ()
-	    "Choose a window tag to pull from window tag combination list"
-	    (run-shell-command
- "stumpish ftg-set-tags $(stumpish all-tag-combos | sed -re 's/^(.*)##/\\1 ## ^\\1/' | sort | dmenu-choose | sed -re 's/ ## .*//')"))
+            "Choose a window tag to pull from window tag combination list"
+            (bordeaux-threads:make-thread
+              (lambda ()
+                (let* (
+                       (*interactivep* nil)
+                       (all-tag-combos (all-tag-combos))
+                       (chosen-tag (uiop:run-program
+                                     "sed -re 's/^(.*)##/\\1 ## ^\\1/' | 
+                                     sort | dmenu-choose | 
+                                     sed -re 's/ ## .*//'"
+                                     :input (list all-tag-combos)
+                                     :output (list :string :stripped t)))
+                       )
+                  (ftg-set-tags chosen-tag)))
+              :name "choose-tag-combo"))
 
 (defcommand 
   firefox-form-fill () ()

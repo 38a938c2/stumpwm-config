@@ -190,6 +190,8 @@
 (define-key *root-map* (kbd "C-M-!") "exec run-popular-command-lisp")
 (define-key *root-map* (kbd "C-@") "exec rerun-popular-command")
 
+(define-key *root-map* (kbd "*") "exec webextension-remote-control-formfill")
+
 ;(define-key *top-map* (kbd "H-SunPageUp") "exec increase-level PCM +1")
 ;(define-key *top-map* (kbd "H-SunPageDown") "exec increase-level PCM -1")
 ;(define-key *top-map* (kbd "H-Home") "exec increase-level PCM +10")
