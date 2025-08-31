@@ -1580,3 +1580,6 @@
       (really-raise-window w)
       (focus-frame (current-group) f))))
 
+(defcommand drop-title (&optional (window (current-window))) ()
+            (setf (window-title window) " ¤ ")
+            (setf (window-user-title window) nil))
