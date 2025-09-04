@@ -31,6 +31,8 @@
 (add-hook *raise-request-hook* 'raise-request-match-tags)
 
 (add-hook *property-notify-hook* 'early-window-name-update)
+(add-hook *property-notify-hook* 'lock-window-title)
+(add-hook *property-notify-hook* 'window-title-tag)
 (add-hook *property-notify-hook* 'report-windows)
 (add-hook *raise-request-hook* 'report-windows)
 (add-hook *new-window-hook* 'report-windows)

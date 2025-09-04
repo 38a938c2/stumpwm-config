@@ -169,6 +169,20 @@
       (setf (window-title w) (xwin-name (window-xwin w))))
     (setf *current-window-rename* nil)))
 
+(defun lock-window-title (w atom)
+  (when (eq atom :wm_name)
+    (let* ((name (xwin-name (window-xwin w))))
+      (when (and (> (length name) 0)
+                 (equal (subseq name 0 2) "≝🔐"))
+        (setf (window-user-title w) (subseq name 2))))))
+
+(defun window-title-tag (w atom)
+  (when (eq atom :wm_name)
+    (let* ((name (xwin-name (window-xwin w))))
+      (when (and (> (length name) 0)
+                 (equal (subseq name 0 2) "≝🏷"))
+        (tag-window (subseq name 2) w)))))
+
 (defun start-stumpwm-socket-start-hook ()
   (ignore-errors (start-stumpwm-socket)))
 

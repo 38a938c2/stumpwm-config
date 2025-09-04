@@ -296,6 +296,10 @@
 	      (equal (window-title x) "su screen")
 	      (equal (window-title x) "su screen — Konsole")
 	      (equal (window-title x) "su tmux — Konsole")
+	      (equal (window-name x) "su shell")
+	      (equal (window-name x) "su screen")
+	      (equal (window-name x) "su screen — Konsole")
+	      (equal (window-name x) "su tmux — Konsole")
 	      )
 	  (list 
 	    ;"9" 
@@ -439,6 +443,7 @@
 		)
 	      (or
 		(starts-with-subseq  "ssh session: my-vps-ssh " (window-title x))
+		(starts-with-subseq  "ssh session: my-vps-ssh " (window-name x))
 		) 
 	      )
 	  (list "my-vps-ssh"))

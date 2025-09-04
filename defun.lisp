@@ -858,7 +858,7 @@
   (ftg-set-tags "root")
   (unless
     (ftg-windows)
-    (run-shell-command "lisp-shell-run '(progn (sudo::root-urxvt) (sleep 1))'")
+    (run-shell-command "lisp-shell-run '(progn (sudo::root-konsole) (sleep 1))'")
     )
   )
 
@@ -1274,7 +1274,7 @@
                    (window-tags x))
                  '(""))
                'string<))
-           (window-title x)
+           (window-name x)
            (window-class x)
            (first
              (sort 
@@ -1288,6 +1288,7 @@
            (sort (WINDOW-tags x) 'string<)
            (window-res x)
            (window-role x)
+           (window-title x)
            ))))
     (sort 
       data 'string< 
@@ -1581,5 +1582,5 @@
       (focus-frame (current-group) f))))
 
 (defcommand drop-title (&optional (window (current-window))) ()
-            (setf (window-title window) " ¤ ")
+            (setf (window-title window) (xwin-name (window-xwin window)))
             (setf (window-user-title window) nil))
