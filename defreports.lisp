@@ -56,7 +56,7 @@
 (push
   (lambda (w)
     (when (and (window-title w)
-               (title-re-p w "^([·∘•*]|[(][0-9]*[)]) Discord [|] .* [-–—] (Mozilla Firefox|Librewolf)")
+               (title-re-p w "^([·∘•*]|[(][0-9]*[)]) Discord [|] .* [-–—] (Mozilla Firefox|Libre[Ww]olf)")
                (not (eq w (current-window))))
       "Discord [*]"))
   *window-reporting*)
