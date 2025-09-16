@@ -60,3 +60,11 @@
                (not (eq w (current-window))))
       "Discord [*]"))
   *window-reporting*)
+(push
+  (lambda (w)
+    (when (and (window-title w)
+               (title-re-p w "^[(][0-9][)]+")
+               (tagged-p w "nixpkgs-zulip")
+               (not (eq w (current-window))))
+      "Zulip [*]"))
+  *window-reporting*)
