@@ -183,6 +183,15 @@
                  (equal (subseq name 0 2) "≝🏷"))
         (tag-window (subseq name 2) w)))))
 
+(defun window-title-nofullscreen (w &optional atom)
+  (when (or (not atom) (eq atom :wm_name))
+    (let* ((name (xwin-name (window-xwin w))))
+      (when (and (> (length name) 0)
+                 (or
+                   (equal (subseq name (- (length name) 2)) "❌⤢")
+                   (equal (subseq name 0 2) "❌⤢")))
+        (deactivate-fullscreen w)))))
+
 (defun start-stumpwm-socket-start-hook ()
   (ignore-errors (start-stumpwm-socket)))
 

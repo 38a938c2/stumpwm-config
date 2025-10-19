@@ -614,7 +614,16 @@
             (equalp (window-class x) "rofi")
             (equalp (window-res x) "rofi")
             )
-          (list "rofi" "mode/fullscreen"))
+          (list "rofi"))
+        (if
+          (and
+            (equalp (window-class x) "rofi")
+            (equalp (window-res x) "rofi")
+            (not (equal (subseq (window-name x) 
+                                (- (length (window-name x)) 2)) 
+                        "❌⤢"))
+            )
+          (list "mode/fullscreen"))
 	))))
 
 (defun 
