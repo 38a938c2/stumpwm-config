@@ -57,10 +57,6 @@
 
 (define-key *root-map* (kbd "B") "exec brightness")
 
-(define-key *root-map* (kbd "Menu") "globally-previous-wt")
-(define-key *root-map* (kbd "Print") "globally-previous-wt")
-(define-key *root-map* (kbd "Sys_Req") "globally-previous-wt")
-(define-key *root-map* (kbd "SunPrint_Screen") "globally-previous-wt")
 (define-key *root-map* (kbd "ISO_Level3_Shift") "activate-urgent")
 (define-key *root-map* (kbd "XF86MenuKB") "activate-urgent")
 (define-key *root-map* (kbd "Multi_key") "activate-urgent")
