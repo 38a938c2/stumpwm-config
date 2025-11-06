@@ -63,8 +63,11 @@
 (push
   (lambda (w)
     (when (and (window-title w)
-               (title-re-p w "^[(][0-9][)]+")
+               (title-re-p w "^[(][0-9]+[)]")
                (tagged-p w "nixpkgs-zulip")
                (not (eq w (current-window))))
-      "Zulip [*]"))
+      (cl-ppcre:regex-replace 
+        "^[(]([0-9]+)[)] .*" 
+        (window-title w)
+        "Zulip [\\1]")))
   *window-reporting*)
