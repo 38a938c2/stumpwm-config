@@ -12,6 +12,10 @@
 (define-key *group-top-map* (kbd "SunPrint_Screen") '*group-root-map*)
 (define-key *group-top-map* (kbd "Sys_Req") '*group-root-map*)
 
+(define-key *root-map* (kbd "Menu") "other")
+(define-key *root-map* (kbd "SunPrint_Screen") "other")
+(define-key *root-map* (kbd "Sys_Req") "other")
+
 (define-key *root-map* (kbd "M") "meta Menu")
 (define-key *root-map* (kbd "N") "eval (run-commands \"exec pkill -9 xneur\" \"exec xneur &\")")
 (define-key *root-map* (kbd "M-N") "exec pkill -9 xneur")
