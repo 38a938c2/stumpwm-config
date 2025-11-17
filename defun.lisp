@@ -1356,9 +1356,9 @@
                   :test 'equal)))
 
 (defcommand
-  get-current-window-marionette-socket () ()
+  get-current-window-marionette-socket (&optional w) ()
   (let*
-    ((w (current-window))
+    ((w (or w (current-window)))
      (xw (window-xwin w))
      (p (xlib:get-property xw :wm_client_machine))
      (ps (map 'string 'code-char p))
