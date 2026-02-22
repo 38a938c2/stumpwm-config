@@ -294,6 +294,7 @@
 (define-key *top-map* (kbd "C-M-#") "eval (progn (xlib:lock-group *display* :group 2) (set-window-layout 2))")
 (define-key *top-map* (kbd "C-M-~") "eval (progn (set-window-layout \"!\"))")
 (define-key *top-map* (kbd "M-~") "eval (progn (set-window-layout \"~\"))")
+(define-key *top-map* (kbd "C-M-S-SPC") "exec keymap-more-symbols")
 
 (define-key *root-map* (kbd "C-M-S-Left") "sprev")
 (define-key *root-map* (kbd "C-M-S-Right") "snext")
