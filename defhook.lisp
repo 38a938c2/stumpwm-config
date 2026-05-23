@@ -165,27 +165,27 @@
   (if (eq atom :wm_name)
     (ignore-errors
       (setf *current-window-rename*
-            (list w (window-title w) (xwin-name (window-xwin w))))
+            (list w (window-title w) (ignore-errors (xwin-name (window-xwin w)))))
       (setf (window-title w) (xwin-name (window-xwin w))))
     (setf *current-window-rename* nil)))
 
 (defun lock-window-title (w atom)
   (when (eq atom :wm_name)
-    (let* ((name (xwin-name (window-xwin w))))
+    (let* ((name (ignore-errors (xwin-name (window-xwin w)))))
       (when (and (> (length name) 0)
                  (equal (subseq name 0 2) "≝🔐"))
         (setf (window-user-title w) (subseq name 2))))))
 
 (defun window-title-tag (w atom)
   (when (eq atom :wm_name)
-    (let* ((name (xwin-name (window-xwin w))))
+    (let* ((name (ignore-errors (xwin-name (window-xwin w)))))
       (when (and (> (length name) 0)
                  (equal (subseq name 0 2) "≝🏷"))
         (tag-window (subseq name 2) w)))))
 
 (defun window-title-nofullscreen (w &optional atom)
   (when (or (not atom) (eq atom :wm_name))
-    (let* ((name (xwin-name (window-xwin w))))
+    (let* ((name (ignore-errors (xwin-name (window-xwin w)))))
       (when (and (> (length name) 0)
                  (or
                    (equal (subseq name (- (length name) 2)) "❌⤢")
