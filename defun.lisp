@@ -510,7 +510,7 @@
   (when tag
     (let* ((content (subseq tag (1+ (length marker))))
            (entries (cl-ppcre:split "@" content))
-           (args (loop for e in entries
+           (args (loop for e in (remove "" entries :test 'equal)
                        for p := (cl-ppcre:split ":" e)
                        for k := (first p)
                        for v := (second p)
@@ -529,6 +529,21 @@
   ((:rest "Size tag: ") :rest)
   (untag-window-regex "^SIZE/" :window window)
   (tag-window (format nil "SIZE/~a" tag) window))
+
+(defcommand 
+  tag-fake-fullscreen 
+  (&key (window (current-window))
+        (group (current-group)))
+  ()
+  (let*
+    ((f (window-frame window))
+     (h (frame-head group f)))
+    (tag-window-size
+      (format nil "~{~{~a:~}@~}"
+              `((x 0)
+                (y 0)
+                (x-size ,(head-width h))
+                (y-size ,(head-height h)))))))
 
 (defcommand show-im-status () ()
   (let*
