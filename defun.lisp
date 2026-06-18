@@ -540,7 +540,7 @@
      (h (frame-head group f)))
     (tag-window-size
       (format nil "~{~{~a:~}@~}"
-              `((x 0)
+              `((x ,(head-x h))
                 (y 0)
                 (x-size ,(head-width h))
                 (y-size ,(head-height h)))))))
